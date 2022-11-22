@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    #cursos {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #cursos td, #cursos th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    #cursos tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #cursos tr:hover {background-color: #ddd;}
+    
+    #cursos th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+    </style>
+</head>
+<body>
+  <div>
+    <h2 style="margin:5px">Courses</h2>
+    <input type="text" id="name" placeholder="name...">
+    <input type="text" id="duration" placeholder="duration...">
+    <input type="text" id="description" placeholder="description...">
+    <button id="myBtn" onclick="save()">save</button>
+  </div>
+<br>
+  <table id="cursos">
+    <tr>
+      <th>Course</th>
+      <th>Duration</th>
+      <th>Description</th>
+    </tr>
+  </table>
+</body>
+  <script>
+    window.onload = function () {
+      getCourses();
+    }
+
+    function addCourseHTML(name, duration, description){
+      let newLi = document.createElement("tr");
+      let newP = document.createElement("td")
+      newP.innerText = name;
+      newLi.appendChild(newP)
+      newP = document.createElement("td")
+      newP.innerText = duration;
+      newLi.appendChild(newP)
+      newP = document.createElement("td")
+      newP.innerText = description;
+      newLi.appendChild(newP)
+      document.getElementById("cursos").appendChild(newLi);
+    }
+    async function getCourses() {
+      const uri = "http://localhost:8080/cursos/thecorner";
+      const promise = fetch(uri, {
+        method: "get",
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "omit", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    
+      json = promise.then(response => response.json());
+      json.then(data => {
+        console.log(data)
+        for (let i = 0; i < data.length; i++) {
+          addCourseHTML(data[i].name, data[i].duration, data[i].description);
+        }
+      });
+
+    }
+    async function save() {
+      //console.log(n)
+      in_name = document.getElementById("name").value;
+      in_duration = document.getElementById("duration").value;
+      in_description = document.getElementById("description").value;
+
+      course = {name: in_name, duration: in_duration, description: in_description}
+
+      const uri = "http://localhost:8080/cursos/thecorner";
+      const res = await fetch(uri, 
+        {
+          method: "post",
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "omit", // include, *same-origin, omit
+          headers: {
+          "Content-Type": "application/json",
+          },
+          
+          body: JSON.stringify(course),
+        }
+      );
+
+      if (res.status === 200) {
+        //el res.json() y res.text() representan el Body.json y Body.text de la response (y son unas promises!!!!)
+        // tengo que recoger el contenido con el método "then(...)"!!!
+        res.text().then(id => {
+          console.log(id)
+          //create new element (todo: retrieve ID from API!!!!)
+          //newElement(id, n.title, n.message);
+        });
+      } else {
+        alert("Error: Note not stored");
+      }
+    }
+
+    async function deleteNoteAPI(id) {
+      console.log(id);
+      const uri = `http://${http_server}:${http_port}/api/notes/${id}`; //http://localhost:5000/api/notes/10
+      const res = await fetch(uri, {
+        method: "delete",
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "omit", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json",
+          //Authorization: "Bearer" + localStorage.token,
+        },
+        //body: JSON.stringify(n),
+      });
+      console.log(res);
+      if (res.status === 200) {
+        res.text().then(txt => {
+          alert(txt);
+          return true;
+        });
+      } else {
+        return false;
+      }
+    }
+  </script>
+
+</html>
