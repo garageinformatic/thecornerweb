@@ -48,7 +48,7 @@
                       </div>
 
                       <div class="col-md-4">
-                        <label for="acformativa" class="form-label">Num Accion formativa</label>
+                        <label for="acformativa" class="form-label">Denominacion Accion formativa</label>
                         <input type="text" class="form-control" id="acformativa" value="" required>
                         <div class="valid-feedback">
                           Looks good!
@@ -59,8 +59,8 @@
                       </div>
                       
                     <div id="" class="col-md-12">
-                        <label for="validationCustom01" class="form-label">Denominación de la acción formativa</label>
-                        <input type="text" class="form-control" id="validationCustom01" value="" required>
+                        <label for="nformativa" class="form-label">Numero de la acción formativa</label>
+                        <input type="text" class="form-control" id="nformativa" value="" required>
                           <div class="valid-feedback">
                               Looks good!
                           </div>
@@ -184,7 +184,7 @@
                 <div class="col-md-12">
                     <h1 class="mb-4">Formacion Academica</h1>
                     <h3 class="mb-2">Estudios</h3>
-                    <select class="form-select" id="validationCustom04" required>
+                    <select class="formacionacadem" id="formacionacadem" required>
                         <option value="">--Escoje una Opcion--</option>
                         <option value="13">Sin Titulacion</option>
                         <option value="14">Titulo graduado en ESO/ graduado escolar</option>
@@ -201,7 +201,7 @@
                 
                 <div class="col-md-12">
                     <h3 class="mb-2">Area Funcional(Solo Ocupados)</h3>
-                    <select class="form-select" id="validationCustom04" required>
+                    <select class="areanfunc" id="areanfunc" required>
                           <option selected disabled value="">--Escoje uno--</option>
                             <option value="22">Dirección</option>
                             <option value="23">Administración</option>
@@ -211,7 +211,7 @@
                         </select>
       
                     <h3 class="mb-2">Categoria (Solo Ocupados)</h3>
-                        <select class="form-select" id="validationCustom04" required>
+                        <select class="categoria" id="categoria" required>
                             <option selected disabled value="">--Escoje uno--</option>
                             <option value="27">Directivo/a</option>
                             <option value="28">Mando Intermedio</option>
@@ -256,8 +256,8 @@
     
     <form class="row g-3 needs-validation" novalidate>
       <div class="col-md-4">
-        <label for="validationCustom01" class="form-label">Razon Social</label>
-        <input type="text" class="form-control" id="validationCustom01" value="" required>
+        <label for="rsocial" class="form-label">Razon Social</label>
+        <input type="text" class="form-control" id="rsocial" value="" required>
         <div class="valid-feedback">
           Looks good!
         </div>
@@ -267,8 +267,8 @@
       </div>
       <form class="row g-3 needs-validation" novalidate>
         <div class="col-md-4">
-          <label for="validationCustom01" class="form-label">Sector</label>
-          <input type="text" class="form-control" id="validationCustom01" value="" required>
+          <label for="sector" class="form-label">Sector</label>
+          <input type="text" class="form-control" id="sector" value="" required>
           <div class="valid-feedback">
             Looks good!
           </div>
@@ -277,8 +277,8 @@
           </div>
         </div>
         <div class="col-md-4">
-          <label for="validationCustom02" class="form-label">Convenio de referencia</label>
-          <input type="text" class="form-control" id="validationCustom02" value="" required>
+          <label for="convref" class="form-label">Convenio de referencia</label>
+          <input type="text" class="form-control" id="convref" value="" required>
           <div class="valid-feedback">
             Looks good!
           </div>
@@ -287,8 +287,8 @@
           </div>
         </div>
         <div class="col-md-4">
-          <label for="validationCustom02" class="form-label">CIF</label>
-          <input type="text" class="form-control" id="validationCustom02" value="" required>
+          <label for="cif" class="form-label">CIF</label>
+          <input type="text" class="form-control" id="cif" value="" required>
           <div class="valid-feedback">
             Looks good!
           </div>
@@ -297,8 +297,8 @@
           </div>
         </div>
         <div class="col-md-4">
-          <label for="validationCustom01" class="form-label">Núm. de inscripción en la Seguridad Social </label>
-          <input type="text" class="form-control" id="validationCustom01" value="" required>
+          <label for="numsegsoc" class="form-label">Núm. de inscripción en la Seguridad Social </label>
+          <input type="text" class="form-control" id="numsegsoc" value="" required>
           <div class="valid-feedback">
             Looks good!
           </div>
@@ -308,8 +308,8 @@
         </div>
         <form class="row g-3 needs-validation" novalidate>
           <div class="col-md-4">
-            <label for="validationCustom01" class="form-label">Nº. de trabajadores</label>
-            <input type="text" class="form-control" id="validationCustom01" value="" required>
+            <label for="nmtrabajador" class="form-label">Nº. de trabajadores</label>
+            <input type="text" class="form-control" id="nmtrabajador" value="" required>
             <div class="valid-feedback">
               Looks good!
             </div>
@@ -318,8 +318,8 @@
             </div>
           </div>
           <div class="col-md-6">
-            <label for="validationCustom02" class="form-label">Dirección del centro de trabajo</label>
-            <input type="text" class="form-control" id="validationCustom02" value="" required>
+            <label for="dtrabajo" class="form-label">Dirección del centro de trabajo</label>
+            <input type="text" class="form-control" id="dtrabajo" value="" required>
             <div class="valid-feedback">
               Looks good!
             </div>
@@ -328,28 +328,28 @@
             </div>
           </div>
           <div class="col-md-6">
-            <label for="validationCustom03" class="form-label">Comarca</label>
-            <input type="text" class="form-control" id="validationCustom03" required>
+            <label for="comarca" class="form-label">Comarca</label>
+            <input type="text" class="form-control" id="comarca" required>
             <div class="invalid-feedback">
               Por favor, una ciudad válida.
             </div>
           </div>
 
           <div class="col-md-2">
-            <label for="validationCustom05" class="form-label">Codigo Postal</label>
-            <input type="text" class="form-control" id="validationCustom05" required>
+            <label for="cp" class="form-label">Codigo Postal</label>
+            <input type="text" class="form-control" id="cp" required>
             
             <div class="invalid-feedback">Por favor, un código postal válido.</div>
         </div>
 
         <div class="col-md-5">
-            <label for="validationCustom05" class="form-label">Población</label>
-            <input type="int" class="form-control" id="validationCustom05" required>
+            <label for="poblacion" class="form-label">Población</label>
+            <input type="int" class="form-control" id="poblacion" required>
         </div>
 
         <div class="col-md-5">
-          <label for="validationCustom04" class="form-label">Provincia</label>
-          <select class="form-select" id="validationCustom04" required>
+          <label for="provincia" class="form-label">Provincia</label>
+          <select class="form-select" id="provincia" required>
             <option selected disabled value="">--Escoje una Provincia--</option>
             <option>Barcelones</option>
             <option>Lleida</option>
