@@ -29,7 +29,7 @@
 
         <form class="row g-3 needs-validation" novalidate>
           <div class="col-md-12">
-            <label for="entidad" class="form-label">Nombre de la Entidad solicitante</label>
+            <label for="entidad" class="form-label">Nombre de la Entidad Solicitante</label>
             <input type="text" class="form-control" id="entidad" value="" required>
             <div class="valid-feedback">
               Looks good!
@@ -42,26 +42,29 @@
 
           <form class="row g-3 needs-validation" novalidate>
             <div class="col-md-4">
-              <label for="expediente" class="form-label">Num expediente</label>
+              <label for="expediente" class="form-label">Num. Expediente</label>
               <input type="text" class="form-control" id="expediente" value="" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
+
               <div class="invalid-feedback">
                 Escriba un nombre.
               </div>
             </div>
 
             <div class="col-md-4">
-              <label for="acformativa" class="form-label">Num Accion formativa</label>
-              <input type="text" class="form-control" id="acformativa" value="" required>
+              <label for="acformativa" class="form-label">Num. Accion Formativa</label>
+              <input type="text" class="form-control" id="ac formativa" value="" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
+
               <div class="invalid-feedback">
                 Escriba un nombre.
                   </div>
                 </div>
+
                     <div class="invalid-feedback">
                         Escriba una entidad valida.
                       </div>
@@ -69,11 +72,12 @@
 
                     <form class="row g-3 needs-validation" novalidate>
                       <div class="col-md-4">
-                        <label for="expediente" class="form-label">Num expediente</label>
+                        <label for="expediente" class="form-label">Num. Expediente</label>
                         <input type="text" class="form-control" id="expediente" value="" required>
                         <div class="valid-feedback">
                           Looks good!
                         </div>
+
                         <div class="invalid-feedback">
                           Escriba un nombre.
                         </div>
@@ -81,37 +85,39 @@
 
                       <div class="col-md-4">
                         <label for="acformativa" class="form-label">Denominacion Accion formativa</label>
-                        <input type="text" class="form-control" id="acformativa" value="" required>
+                        <input type="text" class="form-control" id="accion formativa" value="" required>
                         <div class="valid-feedback">
                           Looks good!
                         </div>
+
                         <div class="invalid-feedback">
                           Escriba un nombre.
                         </div>
                       </div>
-                      
+  
                     <div id="" class="col-md-12">
-                        <label for="nformativa" class="form-label">Numero de la acción formativa</label>
-                        <input type="text" class="form-control" id="nformativa" value="" required>
+                        <label for="nformativa" class="form-label">Numero de la Acción Formativa</label>
+                        <input type="text" class="form-control" id="ac formativa" value="" required>
                           <div class="valid-feedback">
                               Looks good!
                           </div>
+
                           <div class="invalid-feedback">
                           Escriba una acción formativa valida.
                         </div>
                       </div>
                 </form>
 
-
           <h1 class="mb-4">Datos del trabajador / a participante</h1>
 
           <form class="row g-3 needs-validation" novalidate>
             <div class="col-md-8">
               <label for="nombre" class="form-label">Apellidos y Nombres</label>
-              <input type="text" class="form-control" id="nombre" value="" required>
+              <input type="text" class="form-control" id="apellido y nombre" value="" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
+
               <div class="invalid-feedback">
                 Escriba un nombre completo.
               </div>
@@ -125,18 +131,25 @@
 
             <div class="col-md-4">
               <label for="fnacimiento" class="form-label">Fecha de Nacimiento</label>
-              <input type="date" class="form-control" id="fnacimiento" value="(dd/mm/aaaa)" required>
+              <input type="date" class="form-control" id="fecha de nacimiento" value="(dd/mm/aaaa)" required>
             </div>
 
+            <form class="row g-3 needs-validation" novalidate>
             <div class="col-md-4">
               <label for="genero" class="form-label">Género</label>
               <select class="form-select" id="genero" required>
                 <option selected disabled value="">--Escoje uno--</option>
+
                 <option>Hombre</option>
+
                 <option>Mujer</option>
+
                 <option>No Binario</option>
+
                 <option>No Responde</option>
+
               </select>
+
             </div>
 
             <div class="col-md-4">
@@ -145,17 +158,17 @@
             </div>
 
             <div class="col-md-6">
-              <label for="email" class="form-label">Correo electrónico</label>
+              <label for="email" class="form-label">Correo Electrónico</label>
               <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                 <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend" required>
-                <div class="invalid-feedback">Escribe un correo electrónico válido.</div>
+                <div class="invalid-feedback">Escribe un Correo Electrónico Válido.</div>
               </div>
             </div>
 
             <div class="col-md-6">
               <label for="telefono" class="form-label">Teléfono / Móvil</label>
-              <input type="int" class="form-control" id="telefono" required>
+              <input type="int" class="form-control" id="telefono/Movil" required>
             </div>
 
             <div class="col-md-8">
@@ -170,12 +183,14 @@
               <div class="invalid-feedback">Por favor, un código postal válido.</div>
             </div>
 
-<<<<<<< HEAD
                 <div class="col-md-12">
                     <h1 class="mb-4">Formacion Academica</h1>
+
                     <h3 class="mb-2">Estudios</h3>
-                    <select class="formacionacadem" id="formacionacadem" required>
-                        <option value="">--Escoje una Opcion--</option>
+
+                    <form class="row g-3 needs-validation" novalidate>
+                    <select class="formacionacadem" id="formacion academica" required>
+                        <option value="10">--Escoje una Opcion--</option>
                         <option value="13">Sin Titulacion</option>
                         <option value="14">Titulo graduado en ESO/ graduado escolar</option>
                         <option value="15">Titulo Bachillerato</option>
@@ -189,9 +204,9 @@
                 </div>
 
                 
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <h3 class="mb-2">Area Funcional(Solo Ocupados)</h3>
-                    <select class="areanfunc" id="areanfunc" required>
+                    <select class="areanfunc" id="Area Funcional" required>
                           <option selected disabled value="">--Escoje uno--</option>
                             <option value="22">Dirección</option>
                             <option value="23">Administración</option>
@@ -199,7 +214,7 @@
                             <option value="25">Mantenimiento</option>
                             <option value="26">Producción</option>
                         </select>
-      
+                        
                     <h3 class="mb-2">Categoria (Solo Ocupados)</h3>
                         <select class="categoria" id="categoria" required>
                             <option selected disabled value="">--Escoje uno--</option>
@@ -212,7 +227,6 @@
                 </div>
             
    
-=======
             <div class="col-md-6">
               <label for="poblacion" class="form-label">Población</label>
               <input type="int" class="form-control" id="poblacion" required>
@@ -229,10 +243,10 @@
               </select>
             </div>
 
->>>>>>> 4f591f2bb74136ad62615f7cea2b3fe2c90e1b87
+
             <div class="col-md-12">
               <label for="validationCustom04" class="form-label">¿A traves de quien conociste el curso?</label>
-              <select class="form-select" id="validationCustom04" required>
+              <select class="form-select" id="a traves de quien consiste el curso?" required>
                 <option value="">--Escoje una Opcion--</option>
                 <option value="1">Oficina de trabajo (OT)</option>
                 <option value="2">Buscador de cursos del SOC</option>
@@ -251,7 +265,7 @@
 
             <div class="col-md-12">
               <div class="form-check"> Interes en participar en la accion formativa <br />
-                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                <input class="form-check-input" type="checkbox" value="" id="Interes en participar" required>
                 <label class="form-check-label" for="invalidCheck"> Autorizo al Consorcio para la Formación
                   Continua de Cataluña a utilizar mis datos personales para recibir información sobre la
                   formación</label>
@@ -261,7 +275,7 @@
                 <div class="col-md-12">
                   <h1 class="mb-4">Formacion Academica</h1>
                   <h3 class="mb-2">Estudios</h3>
-                  <select class="form-select" id="validationCustom04" required>
+                  <select class="form-select" id="Formacion Academica" required>
                     <option value="">--Escoje una Opcion--</option>
                     <option value="13">Sin Titulacion</option>
                     <option value="14">Titulo graduado en ESO/ graduado escolar</option>
@@ -279,7 +293,7 @@
 
                 <div class="col-md-12">
                   <h3 class="mb-2">Area Funcional(Solo Ocupados)</h3>
-                  <select class="form-select" id="validationCustom04" required>
+                  <select class="form-select" id="Area Funcional" required>
                     <option selected disabled value="">--Escoje uno--</option>
                     <option value="22">Dirección</option>
                     <option value="23">Administración</option>
@@ -289,7 +303,7 @@
                   </select>
 
                   <h3 class="mb-2">Categoria (Solo Ocupados)</h3>
-                  <select class="form-select" id="validationCustom04" required>
+                  <select class="form-select" id="categoria" required>
                     <option selected disabled value="">--Escoje uno--</option>
                     <option value="27">Directivo/a</option>
                     <option value="28">Mando Intermedio</option>
@@ -322,11 +336,11 @@
                 <p>Empresa con mas de 250 empleados?</p>
 
                 <div class="form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
+                  <input class="form-check-input" type="checkbox" id="Entidad o Empresa" value="1">
                   <label class="form-check-label" for="inlineCheckbox1">Si</label>
                 </div>
                 <div class="form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2">
+                  <input class="form-check-input" type="checkbox" id="Entidad o Empresa" value="2">
                   <label class="form-check-label" for="inlineCheckbox2">No</label>
                 </div>
 
@@ -342,10 +356,12 @@
         <div class="valid-feedback">
           Looks good!
         </div>
+
         <div class="invalid-feedback">
           Escriba un nombre.
         </div>
       </div>
+
       <form class="row g-3 needs-validation" novalidate>
         <div class="col-md-4">
           <label for="sector" class="form-label">Sector</label>
@@ -353,61 +369,73 @@
           <div class="valid-feedback">
             Looks good!
           </div>
+
           <div class="invalid-feedback">
             Escriba un nombre.
           </div>
         </div>
+
         <div class="col-md-4">
           <label for="convref" class="form-label">Convenio de referencia</label>
-          <input type="text" class="form-control" id="convref" value="" required>
+          <input type="text" class="form-control" id="convenio" value="" required>
           <div class="valid-feedback">
             Looks good!
           </div>
+
           <div class="invalid-feedback">
             Escriba un apellido.
           </div>
         </div>
+
         <div class="col-md-4">
           <label for="cif" class="form-label">CIF</label>
           <input type="text" class="form-control" id="cif" value="" required>
           <div class="valid-feedback">
             Looks good!
           </div>
+
           <div class="invalid-feedback">
             Escriba un apellido.
           </div>
         </div>
+
         <div class="col-md-4">
           <label for="numsegsoc" class="form-label">Núm. de inscripción en la Seguridad Social </label>
           <input type="text" class="form-control" id="numsegsoc" value="" required>
           <div class="valid-feedback">
             Looks good!
           </div>
+
           <div class="invalid-feedback">
             Escriba un nombre.
           </div>
         </div>
+
         <form class="row g-3 needs-validation" novalidate>
           <div class="col-md-4">
             <label for="nmtrabajador" class="form-label">Nº. de trabajadores</label>
-            <input type="text" class="form-control" id="nmtrabajador" value="" required>
+            <input type="text" class="form-control" id="n trabajador" value="" required>
             <div class="valid-feedback">
               Looks good!
             </div>
+
             <div class="invalid-feedback">
               Escriba un nombre.
             </div>
           </div>
+
           <div class="col-md-6">
             <label for="dtrabajo" class="form-label">Dirección del centro de trabajo</label>
-            <input type="text" class="form-control" id="dtrabajo" value="" required>
+            <input type="text" class="form-control" id="d trabajo" value="" required>
             <div class="valid-feedback">
               Looks good!
             </div>
+
             <div class="invalid-feedback">
               Escriba un apellido.
             </div>
           </div>
+
           <div class="col-md-6">
             <label for="comarca" class="form-label">Comarca</label>
             <input type="text" class="form-control" id="comarca" required>
@@ -488,6 +516,7 @@
         </form>
   </div>
   </div>
+  
   </div>
   </div>
   <p>Click the button to create a new PDF document with</p>
