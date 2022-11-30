@@ -23,9 +23,9 @@
                 <h1 class="mb-4">Anexo 1. Solicitud de participación en una acción formativa</h1>
 
                 <form class="row g-3 needs-validation" novalidate>
-                    <div id ="entidad" class="col-md-12">
-                      <label for="validationCustom01" class="form-label">Nombre de la Entidad solicitante</label>
-                      <input type="text" class="form-control" id="validationCustom01" value="" required>
+                    <div class="col-md-12">
+                      <label for="entidad" class="form-label">Nombre de la Entidad solicitante</label>
+                      <input type="text" class="form-control" id ="entidad" value="" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -37,7 +37,7 @@
 
                     <form class="row g-3 needs-validation" novalidate>
                       <div class="col-md-4">
-                        <label for="validationCustom01" class="form-label">Num expediente</label>
+                        <label for="expediente" class="form-label">Num expediente</label>
                         <input type="text" class="form-control" id="expediente" value="" required>
                         <div class="valid-feedback">
                           Looks good!
@@ -48,7 +48,7 @@
                       </div>
 
                       <div class="col-md-4">
-                        <label for="validationCustom01" class="form-label">Num Accion formativa</label>
+                        <label for="acformativa" class="form-label">Num Accion formativa</label>
                         <input type="text" class="form-control" id="acformativa" value="" required>
                         <div class="valid-feedback">
                           Looks good!
@@ -75,7 +75,7 @@
 
                 <form class="row g-3 needs-validation" novalidate>
                     <div class="col-md-8">
-                      <label for="validationCustom01" class="form-label">Apellidos y Nombres</label>
+                      <label for="nombre" class="form-label">Apellidos y Nombres</label>
                       <input type="text" class="form-control" id="nombre" value="" required>
                         <div class="valid-feedback">
                             Looks good!
@@ -86,18 +86,18 @@
                     </div>
 
                     <div class="col-md-4">
-                      <label for="validationCustom02" class="form-label">NIF</label>
+                      <label for="nif" class="form-label">NIF</label>
                       <input type="text" class="form-control" id="nif" value="" required>
                       
                     </div>
 
                     <div class="col-md-4">
-                        <label for="validationCustom02" class="form-label">Fecha de Nacimiento</label>
+                        <label for="fnacimiento" class="form-label">Fecha de Nacimiento</label>
                         <input type="date" class="form-control" id="fnacimiento" value="(dd/mm/aaaa)" required>    
                     </div>
 
                     <div class="col-md-4">
-                        <label for="validationCustom04" class="form-label">Género</label>
+                        <label for="genero" class="form-label">Género</label>
                         <select class="form-select" id="genero"  required>
                           <option selected disabled value="">--Escoje uno--</option>
                           <option>Hombre</option>
@@ -108,12 +108,12 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="validationCustom05" class="form-label">NASS</label>
+                        <label for="nass" class="form-label">NASS</label>
                         <input type="int" class="form-control" id="nass" required>
                     </div>
 
                     <div class="col-md-6">
-                      <label for="validationCustomUsername" class="form-label">Correo electrónico</label>
+                      <label for="email" class="form-label">Correo electrónico</label>
                       <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
                             <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend" required>
@@ -122,29 +122,29 @@
                     </div>
 
                     <div class="col-md-6">
-                      <label for="validationCustom03" class="form-label">Teléfono / Móvil</label>
+                      <label for="telefono" class="form-label">Teléfono / Móvil</label>
                       <input type="int" class="form-control" id="telefono" required>
                     </div>
 
                     <div class="col-md-8">
-                        <label for="validationCustom05" class="form-label">Domicilio</label>
+                        <label for="domicilio" class="form-label">Domicilio</label>
                         <input type="int" class="form-control" id="domicilio" required>
                     </div>
 
                     <div class="col-md-4">
-                        <label for="validationCustom05" class="form-label">Codigo Postal</label>
+                        <label for="cp" class="form-label">Codigo Postal</label>
                         <input type="text" class="form-control" id="cp" required>
                         
                         <div class="invalid-feedback">Por favor, un código postal válido.</div>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="validationCustom05" class="form-label">Población</label>
+                        <label for="poblacion" class="form-label">Población</label>
                         <input type="int" class="form-control" id="poblacion" required>
                     </div>
 
                     <div class="col-md-6">
-                      <label for="validationCustom04" class="form-label">Provincia</label>
+                      <label for="provincia" class="form-label">Provincia</label>
                       <select class="form-select" id="provincia" required>
                         <option selected disabled value="">--Escoje una Provincia--</option>
                         <option>Barcelones</option>
