@@ -39,7 +39,7 @@
             entidad: document.getElementById("entidad").value,
             expediente: document.getElementById("expediente").value,
             acformativa: document.getElementById("acformativa").value,
-            ntrabajadores: document.getElementById("ntrabajadores").value,
+            nformativa: document.getElementById("nformativa").value,
             nombre: document.getElementById("nombre").value,
             nif: document.getElementById("nif").value,
             fnacimiento: document.getElementById("fnacimiento").value,
