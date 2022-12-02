@@ -58,8 +58,6 @@
 
         async function sendData(urn, data) {
 
-            course = { name: in_name, duration: in_duration, description: in_description }
-
             const uri = 'https://prueba1.server2.trinchera.dev/wp-json/pluginCorner/v1/' + urn;
             const res = await fetch(uri, {
                 method: "post",
@@ -79,26 +77,26 @@
                     console.log(id)
                 });
             } else {
-                alert("Error: Data not saved");
+                console.log("Error: Data not saved");
             }
 
         }
 
 
         //grabamos datos personales en la BBDD
-        function sendPersonalData(pd) {
-            sendData('personaldata', pd);
+        async function sendPersonalData(data) {
+            sendData('personaldata', data);
 
         }
 
         //grabamos datos de la empresa en la BBDD
-        function sendCompanyData(cd) {
-            sendData('companydata', pd);
+        async function sendCompanyData(data) {
+            sendData('companydata', data);
 
         }
 
 
-        async function enviar() {
+        async function saveData() {
             //hemos hecho document.getElementById con el id de c/uno de los valores 
             //hemos corregidos unos id para hacer pruebas, como veras la mayoria de ellos se repiten eln el html 
             //no he cambiado todos los id del html porque faltan cosas del formulario, 
@@ -194,7 +192,7 @@
                 sector: document.getElementById("sector").value,
                 convenio: document.getElementById("convenio").value,
                 cif: document.getElementById("cif").value,
-                inscripcionss: document.getElementById("inscripcionss").value,
+                inscripcions: document.getElementById("inscripcions").value,
                 ntrabajadores: document.getElementById("ntrabajadores").value,
                 centrotrabajo: document.getElementById("centrotrabajo").value,
                 cp2: document.getElementById("cp2").value,
@@ -233,7 +231,7 @@
                     y: 273,
                 },
                 {
-                    key: "inscripcionss",
+                    key: "inscripcions",
                     x: 200,
                     y: 273,
                 },
@@ -936,7 +934,7 @@
                 </div>
             </div>
         </form>
-        <button id="enviar" class="btn btn-primary" onclick="enviar()">enviar </button>
+        <button class="btn btn-primary" onclick="saveData()">Enviar</button>
 
     </div>
 
