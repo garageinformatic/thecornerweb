@@ -85,6 +85,8 @@
 
 
         //grabamos datos personales básicos de contacto en la BBDD
+
+        //NO SE USA
         async function sendLeadData(data) {
             console.log('envio datos básicos');
             sendData('leadData', data);
@@ -92,11 +94,21 @@
         }
 
         //grabamos datos adicionales en la BBDD
+
+        //NO SE USA
         async function sendAdditionalData(data) {
             console.log('envio datos básicos');
             sendData('additionalData', data);
 
         }
+
+        //grabamos datos personales y de contacto en la BBDD
+        async function sendPersonalData(data) {
+            console.log('envio datos personales');
+            sendData('personalData', data);
+
+        }
+
         //grabamos datos de la empresa en la BBDD
         async function sendCompanyData(data) {
             console.log('envio datos empresa');
@@ -118,8 +130,6 @@
                 telefono: document.getElementById("telefono").value,
             }
 
-            sendLeadData(leadData);
-
             additionalData = {
                 entidad: document.getElementById("entidad").value,
                 denominacion: document.getElementById("denominacion").value,
@@ -132,14 +142,12 @@
                 poblacion: document.getElementById("poblacion").value,
             }
 
-            sendAdditionalData(additionalData);
+            
 
 
             datos = Object.assign(leadData, additionalData);
+            sendPersonalData(datos);
 
-            if (discapacidad == "true"){
-                        
-            }
             
             vals = [
                 {
