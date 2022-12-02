@@ -15,7 +15,7 @@
     <!--link rel="stylesheet" href="/css/bootstrap.min.css"-->
 
     <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        /* Example starter JavaScript for disabling form submissions if there are invalid fields
         (() => {
             'use strict'
 
@@ -34,7 +34,7 @@
                 }, false)
             })
         })()
-
+*/
 
 
 
@@ -72,7 +72,7 @@
                 body: JSON.stringify(data),
             }
             );
-
+            console.log(res);
             if (res.status === 200) {
                 res.text().then(id => {
                     console.log(id)
@@ -84,15 +84,23 @@
         }
 
 
-        //grabamos datos personales en la BBDD
-        async function sendPersonalData(data) {
-            sendData('personaldata', data);
+        //grabamos datos personales básicos de contacto en la BBDD
+        async function sendLeadData(data) {
+            console.log('envio datos básicos');
+            sendData('leadData', data);
 
         }
 
+        //grabamos datos adicionales en la BBDD
+        async function sendAdditionalData(data) {
+            console.log('envio datos básicos');
+            sendData('additionalData', data);
+
+        }
         //grabamos datos de la empresa en la BBDD
         async function sendCompanyData(data) {
-            sendData('companydata', data);
+            console.log('envio datos empresa');
+            sendData('companyData', data);
 
         }
 
@@ -103,23 +111,31 @@
             //no he cambiado todos los id del html porque faltan cosas del formulario, 
             //del 1 al 4 estan cambiado los id
             //objeto "datos"
-            datos = {
-                entidad: document.getElementById("entidad").value,
-                denominacion: document.getElementById("denominacion").value,
+            leadData = {
                 nombre: document.getElementById("nombre").value,
                 nif: document.getElementById("nif").value,
+                email: document.getElementById("email").value,
+                telefono: document.getElementById("telefono").value,
+            }
+
+            sendLeadData(leadData);
+
+            additionalData = {
+                entidad: document.getElementById("entidad").value,
+                denominacion: document.getElementById("denominacion").value,
                 fechanacimiento: document.getElementById("fechanacimiento").value,
                 genero: document.getElementById("genero").value,
                 nass: document.getElementById("nass").value,
                 domicilio: document.getElementById("domicilio").value,
                 cp: document.getElementById("cp").value,
                 poblacion: document.getElementById("poblacion").value,
-                email: document.getElementById("email").value,
-                telefono: document.getElementById("telefono").value,
             }
 
-            sendPersonalData(datos);
+            sendAdditionalData(additionalData);
 
+
+            datos = Object.assign(leadData, additionalData);
+            
             vals = [
                 {
                     key: "entidad",
@@ -635,7 +651,7 @@
                     <option>No Responde</option>
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <label for="nass" class="form-label">NASS</label>
                 <input type="text" class="form-control" id="nass" required>
 
@@ -643,17 +659,6 @@
                     Escriba un numero de la seguridad social valido.
                 </div>
             </div>
-
-                <div class="col-md-2">
-                    <label for="genero" class="form-label">Discapacidad</label>
-                    <select class="form-select" id="genero" required>
-                        <option selected disabled value="">--Escoje uno--</option>
-                        <option>Si</option>
-                        <option>No</option>  
-                    </select>
-                    
-                </div>
-
             <div class="col-md-6">
                 <label for="email" class="form-label">Correo electrónico</label>
                 <div class="input-group has-validation">
@@ -813,8 +818,8 @@
                 <div class="invalid-feedback">Escriba un CIF valido</div>
             </div>
             <div class="col-md-4">
-                <label for="inscripcionss" class="form-label">Núm. de inscripción en la Seguridad Social </label>
-                <input type="text" class="form-control" id="inscripcionss" value="" required>
+                <label for="inscripcions" class="form-label">Núm. de inscripción en la Seguridad Social </label>
+                <input type="text" class="form-control" id="inscripcions" value="" required>
 
                 <div class="invalid-feedback">Escriba un numero de la seguridad social valido</div>
             </div>
