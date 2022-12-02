@@ -35,11 +35,15 @@
             })
         })()
 
+
+
+
+
         const tyc = document.getElementById("condiciones");
         const enviar = document.getElementById("enviar");
 
 
-        
+
         //const cambiarCondiciones = () => tyc.checked ? enviar.disabled = false : enviar.disabled = true
 
         var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
@@ -48,7 +52,53 @@
 
         const { PDFDocument, StandardFonts, rgb, degrees } = PDFLib
 
-        async function createPdf() {
+
+
+
+
+        async function sendData(urn, data) {
+
+            course = { name: in_name, duration: in_duration, description: in_description }
+
+            const uri = 'https://prueba1.server2.trinchera.dev/wp-json/pluginCorner/v1/' + urn;
+            const res = await fetch(uri, {
+                method: "post",
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "omit", // include, *same-origin, omit
+                headers: {
+                    "Content-Type": "application/json",
+                },
+
+                body: JSON.stringify(data),
+            }
+            );
+
+            if (res.status === 200) {
+                res.text().then(id => {
+                    console.log(id)
+                });
+            } else {
+                alert("Error: Data not saved");
+            }
+
+        }
+
+
+        //grabamos datos personales en la BBDD
+        function sendPersonalData(pd) {
+            sendData('personaldata', pd);
+
+        }
+
+        //grabamos datos de la empresa en la BBDD
+        function sendCompanyData(cd) {
+            sendData('companydata', pd);
+
+        }
+
+
+        async function enviar() {
             //hemos hecho document.getElementById con el id de c/uno de los valores 
             //hemos corregidos unos id para hacer pruebas, como veras la mayoria de ellos se repiten eln el html 
             //no he cambiado todos los id del html porque faltan cosas del formulario, 
@@ -68,6 +118,8 @@
                 email: document.getElementById("email").value,
                 telefono: document.getElementById("telefono").value,
             }
+
+            sendPersonalData(datos);
 
             vals = [
                 {
@@ -148,7 +200,16 @@
                 cp2: document.getElementById("cp2").value,
                 poblacion2: document.getElementById("poblacion2").value,
                 comarca2: document.getElementById("comarca2").value,
+
+                //opciones
+                conocurso: document.getElementById("conocurso").value,
+                facademica: document.getElementById("facademica").value,
+                arfuncional: document.getElementById("arfuncional").value,
+                categoriaso: document.getElementById("categoriaso").value,
+
             }
+
+            sendCompanyData(empresa);
 
             cord = [
                 {
@@ -203,6 +264,12 @@
                 }
             ]
 
+
+
+
+
+
+
             // Fetch an existing PDF document
             const url = "./documento.pdf"
             const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
@@ -244,14 +311,14 @@
 
             //ESCRIBO LAS X en el bloque de opciones 1
             //el formulario nos enviará un valor de 1 a 12 
-            let sel_opt_1 = document.getElementById("conocurso").value
+            //let sel_opt_1 = document.getElementById("conocurso").value
             //Delcaro un objeto coordenadas para el bloque de opciones 1
             //al principio será vacío
             //let sel_opt_1 = 4
 
             let coord = {}
 
-            switch (sel_opt_1) {
+            switch (empresa.conocurso) {
                 case "1": //Oficina de Trabajo (OT)
                     coord = {
                         x: 84,
@@ -340,34 +407,34 @@
             //FORMACION ACADEMICA
             //SI COMENTAMOS DESDE LA 727 HASTA 792 NOS SALE TODO LO QUE TENEMOS HASTA AHORA
             //FALTA ESTA PARTE, AUN NO ESTA EL HTML DE FORMACION ACADEMICA
-            let sel_opt_2 = document.getElementById("facademica").value
+            //let sel_opt_2 = document.getElementById("facademica").value
             let coord_2 = {}
-            switch (sel_opt_2) {
+            switch (empresa.facademica) {
                 case "14": //Sin titulacion
                     coord_2 = {
                         x: 95,
                         y: 492,
                     }
                     break;
-                    case "15": //Titulo de graduado ESO
+                case "15": //Titulo de graduado ESO
                     coord_2 = {
                         x: 95,
                         y: 484
                     }
                     break;
-                    case "16": //Titulo bachillerato
+                case "16": //Titulo bachillerato
                     coord_2 = {
                         x: 95,
                         y: 474
                     }
                     break;
-                    case "17": //Titulo FP nivel 1
+                case "17": //Titulo FP nivel 1
                     coord_2 = {
                         x: 95,
                         y: 464
                     }
                     break;
-                    case "18": //Titulo tecnico FP
+                case "18": //Titulo tecnico FP
                     coord_2 = {
                         x: 341,
                         y: 474
@@ -379,22 +446,22 @@
                         y: 492
                     }
                     break;
-                
+
                 case "20": //Estudios universitarios 1º ciclo
                     coord_2 = {
                         x: 341,
                         y: 474
                     }
                     break;
-                
-                
+
+
                 case "21": //Estudios universitarios 2º ciclo
                     coord_2 = {
                         x: 95,
                         y: 456
                     }
                     break;
-                
+
                 default: // Otra titulacion
                     coord_2 = {
                         x: 341,
@@ -407,10 +474,15 @@
                 size: 10,
                 font: helveticaFont,
             })
+
+
+
             //AREA FUNCIONAL
-            let sel_opt_3 = document.getElementById("arfuncional").value
+            //let sel_opt_3 = document.getElementById("arfuncional").value
+
+
             let coord_3 = {}
-            switch (sel_opt_3) {
+            switch (empresa.arfuncional) {
                 case "23": //Dirección 
                     coord_3 = {
                         x: 95,
@@ -452,9 +524,9 @@
             })
 
 
-            let sel_opt_4 = document.getElementById("categoriaso").value
+            //let sel_opt_4 = document.getElementById("categoriaso").value
             let coord_4 = {}
-            switch (sel_opt_4) {
+            switch (empresa.categoriaso) {
                 case "28": //Directivo/a
                     coord_4 = {
                         x: 341,
@@ -498,8 +570,14 @@
             const pdfBytes = await pdfDoc.save()
 
             // Trigger the browser to download the PDF document
-            download(pdfBytes, "resultado2.pdf", "application/pdf");
+            download(pdfBytes, "preinscripcion.pdf", "application/pdf");
         }
+
+
+        //enviamos datos al Back End
+
+
+
     </script>
 </head>
 
@@ -811,10 +889,9 @@
                 </select>
             </div> <br>
             <span class="d-block pb-2">Firma digital aqui</span>
-                    <div class="signature mb-2" style="width: 100%; height: 200px;">
-                        <canvas id="signature-canvas"
-                            style="border: 1px dashed red; width: 100%; height: 200px;"></canvas>
-                    </div>
+            <div class="signature mb-2" style="width: 100%; height: 200px;">
+                <canvas id="signature-canvas" style="border: 1px dashed red; width: 100%; height: 200px;"></canvas>
+            </div>
             <p>Protección de datos: a los efectos previstos a la Ley Orgánica 3/2018, de 5 de diciembre, de Protección
                 de Datos Personales ygarantía de los derechos digitales, y al Reglamento (UE) 2016/679 del Parlamento
                 Europeo y del consejo de 27 de abril de 2016, relativo a la protección de los personas físicas respecto
@@ -859,7 +936,7 @@
                 </div>
             </div>
         </form>
-        <button id="enviar" class="btn btn-primary"   onclick="createPdf()">enviar </button>
+        <button id="enviar" class="btn btn-primary" onclick="enviar()">enviar </button>
 
     </div>
 
