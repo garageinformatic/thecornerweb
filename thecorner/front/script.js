@@ -205,7 +205,8 @@
         ]
 
         // Fetch an existing PDF document
-        const url = './documento.pdf'
+        const url = 'https://prueba1.server2.trinchera.dev/wp-json/pluginCorner/v1/postear'
+        //const url = './documento.pdf'
         const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
 
         // Load a PDFDocument from the existing PDF bytes
