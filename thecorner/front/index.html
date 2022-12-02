@@ -2,544 +2,868 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Planilla ingreso TC</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
-  <script src="https://unpkg.com/downloadjs@1.4.7"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <script src="./script.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Planilla ingreso TC</title>
+    <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!--link rel="stylesheet" href="/css/bootstrap.min.css"-->
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+
+        const tyc = document.getElementById("condiciones");
+        const enviar = document.getElementById("enviar");
+
+
+        
+        //const cambiarCondiciones = () => tyc.checked ? enviar.disabled = false : enviar.disabled = true
+
+        var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+        var alertTrigger = document.getElementById('liveAlertBtn')
+
+
+        const { PDFDocument, StandardFonts, rgb, degrees } = PDFLib
+
+        async function createPdf() {
+            //hemos hecho document.getElementById con el id de c/uno de los valores 
+            //hemos corregidos unos id para hacer pruebas, como veras la mayoria de ellos se repiten eln el html 
+            //no he cambiado todos los id del html porque faltan cosas del formulario, 
+            //del 1 al 4 estan cambiado los id
+            //objeto "datos"
+            datos = {
+                entidad: document.getElementById("entidad").value,
+                denominacion: document.getElementById("denominacion").value,
+                nombre: document.getElementById("nombre").value,
+                nif: document.getElementById("nif").value,
+                fechanacimiento: document.getElementById("fechanacimiento").value,
+                genero: document.getElementById("genero").value,
+                nass: document.getElementById("nass").value,
+                domicilio: document.getElementById("domicilio").value,
+                cp: document.getElementById("cp").value,
+                poblacion: document.getElementById("poblacion").value,
+                email: document.getElementById("email").value,
+                telefono: document.getElementById("telefono").value,
+            }
+
+            vals = [
+                {
+                    key: "entidad",
+                    x: 80,
+                    y: 736,
+                },
+
+                {
+                    key: "denominacion",
+                    x: 80,
+                    y: 718,
+                },
+
+                {
+                    key: "nombre",
+                    x: 150,
+                    y: 685,
+                },
+                {
+                    key: "nif",
+                    x: 350,
+                    y: 685,
+                },
+                {
+                    key: "fechanacimiento",
+                    x: 80,
+                    y: 665,
+                },
+                {
+                    key: "genero",
+                    x: 170,
+                    y: 665,
+                },
+                {
+                    key: "nass",
+                    x: 240,
+                    y: 665,
+                },
+                {
+                    key: "domicilio",
+                    x: 80,
+                    y: 645,
+                },
+                {
+                    key: "cp",
+                    x: 260,
+                    y: 645,
+                },
+                {
+                    key: "poblacion",
+                    x: 350,
+                    y: 665,
+                },
+
+                {
+                    key: "email",
+                    x: 146,
+                    y: 622,
+                },
+                {
+                    key: "telefono",
+                    x: 260,
+                    y: 622,
+                },
+
+            ]
+            //hemos hecho otro objeto para empresa
+            //esto lo dejo así hasta que los del formulario rellenen bien los campos y poder coger los id 
+            empresa = {
+                razonsocial: document.getElementById("razonsocial").value,
+                sector: document.getElementById("sector").value,
+                convenio: document.getElementById("convenio").value,
+                cif: document.getElementById("cif").value,
+                inscripcionss: document.getElementById("inscripcionss").value,
+                ntrabajadores: document.getElementById("ntrabajadores").value,
+                centrotrabajo: document.getElementById("centrotrabajo").value,
+                cp2: document.getElementById("cp2").value,
+                poblacion2: document.getElementById("poblacion2").value,
+                comarca2: document.getElementById("comarca2").value,
+            }
+
+            cord = [
+                {
+                    key: "razonsocial",
+                    x: 80,
+                    y: 310,
+                },
+                {
+                    key: "sector",
+                    x: 80,
+                    y: 293,
+                },
+                {
+                    key: "convenio",
+                    x: 410,
+                    y: 293,
+                },
+                {
+                    key: "cif",
+                    x: 80,
+                    y: 273,
+                },
+                {
+                    key: "inscripcionss",
+                    x: 200,
+                    y: 273,
+                },
+                {
+                    key: "ntrabajadores",
+                    x: 410,
+                    y: 273,
+                },
+                {
+                    key: "centrotrabajo",
+                    x: 80,
+                    y: 253,
+                },
+                {
+                    key: "cp2",
+                    x: 80,
+                    y: 235,
+                },
+                {
+                    key: "poblacion2",
+                    x: 140,
+                    y: 235,
+                },
+                {
+                    key: "comarca2",
+                    x: 400,
+                    y: 235,
+                }
+            ]
+
+            // Fetch an existing PDF document
+            const url = "./documento.pdf"
+            const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+
+            // Load a PDFDocument from the existing PDF bytes
+            const pdfDoc = await PDFDocument.load(existingPdfBytes)
+
+            // Embed the Helvetica font
+            const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+            // Get the first page of the document
+            const pages = pdfDoc.getPages()
+            const firstPage = pages[0]
+
+            // Get the width and height of the first page
+            const { width, height } = firstPage.getSize()
+
+            mySize = 10;
+            myFont = helveticaFont;
+
+            for (let i = 0; i < vals.length; i++) {
+                console.log(datos[vals[i].key])
+                firstPage.drawText(datos[vals[i].key], {
+                    x: vals[i].x,
+                    y: vals[i].y,
+                    size: mySize,
+                    font: myFont,
+                })
+            }
+            for (let i = 0; i < cord.length; i++) {
+                firstPage.drawText(empresa[cord[i].key], {
+                    x: cord[i].x,
+                    y: cord[i].y,
+                    size: mySize,
+                    font: myFont,
+                })
+            }
+
+
+            //ESCRIBO LAS X en el bloque de opciones 1
+            //el formulario nos enviará un valor de 1 a 12 
+            let sel_opt_1 = document.getElementById("conocurso").value
+            //Delcaro un objeto coordenadas para el bloque de opciones 1
+            //al principio será vacío
+            //let sel_opt_1 = 4
+
+            let coord = {}
+
+            switch (sel_opt_1) {
+                case "1": //Oficina de Trabajo (OT)
+                    coord = {
+                        x: 84,
+                        y: 602,
+                    }
+                    break;
+                case "2": //Buscador de cursos del SOC
+                    coord = {
+                        x: 245,
+                        y: 602
+                    }
+                    break;
+                case "3": //Twitter del Consorci @fpo_continua
+                    coord = {
+                        x: 391,
+                        y: 602
+                    }
+                    break;
+                case "4": //Web del Consorci: conforcat.gencat.cat
+                    coord = {
+                        x: 84,
+                        y: 592
+                    }
+                    break;
+                case "5": //Web: fp.gencat.cat
+                    coord = {
+                        x: 245,
+                        y: 592
+                    }
+                    break;
+                case "6": //Twitter de Ocupación @ocupaciocat
+                    coord = {
+                        x: 391,
+                        y: 592
+                    }
+                    break;
+                case "7": //Entidad de Formación 
+                    coord = {
+                        x: 84,
+                        y: 581
+                    }
+                    break;
+                case "8": //LinkedIn
+                    coord = {
+                        x: 245,
+                        y: 581
+                    }
+                    break;
+                case "9": //Amigos, amigas o familiares
+                    coord = {
+                        x: 391,
+                        y: 581
+                    }
+                    break;
+                case "10": // Agentes económicos y sociales
+                    coord = {
+                        x: 84,
+                        y: 570
+                    }
+                    break;
+                case "11": //Empresa
+                    coord = {
+                        x: 245,
+                        y: 570
+                    }
+                    break;
+                case "12": //Prensa, radio, televisión ( medios comunicación)
+                    coord = {
+                        x: 391,
+                        y: 570
+                    }
+                    break;
+                default:
+                    coord = {
+                        x: 84,
+                        y: 559
+                    }
+            }
+            firstPage.drawText("X", {
+                x: coord.x,
+                y: coord.y,
+                size: 10,
+                font: helveticaFont,
+            })
+
+            //FORMACION ACADEMICA
+            //SI COMENTAMOS DESDE LA 727 HASTA 792 NOS SALE TODO LO QUE TENEMOS HASTA AHORA
+            //FALTA ESTA PARTE, AUN NO ESTA EL HTML DE FORMACION ACADEMICA
+            let sel_opt_2 = document.getElementById("facademica").value
+            let coord_2 = {}
+            switch (sel_opt_2) {
+                case "14": //Sin titulacion
+                    coord_2 = {
+                        x: 95,
+                        y: 492,
+                    }
+                    break;
+                    case "15": //Titulo de graduado ESO
+                    coord_2 = {
+                        x: 95,
+                        y: 484
+                    }
+                    break;
+                    case "16": //Titulo bachillerato
+                    coord_2 = {
+                        x: 95,
+                        y: 474
+                    }
+                    break;
+                    case "17": //Titulo FP nivel 1
+                    coord_2 = {
+                        x: 95,
+                        y: 464
+                    }
+                    break;
+                    case "18": //Titulo tecnico FP
+                    coord_2 = {
+                        x: 341,
+                        y: 474
+                    }
+                    break;
+                case "19": //Titulo tecnico superior nivel 3
+                    coord_2 = {
+                        x: 341,
+                        y: 492
+                    }
+                    break;
+                
+                case "20": //Estudios universitarios 1º ciclo
+                    coord_2 = {
+                        x: 341,
+                        y: 474
+                    }
+                    break;
+                
+                
+                case "21": //Estudios universitarios 2º ciclo
+                    coord_2 = {
+                        x: 95,
+                        y: 456
+                    }
+                    break;
+                
+                default: // Otra titulacion
+                    coord_2 = {
+                        x: 341,
+                        y: 456
+                    }
+            }
+            firstPage.drawText("X", {
+                x: coord_2.x,
+                y: coord_2.y,
+                size: 10,
+                font: helveticaFont,
+            })
+            //AREA FUNCIONAL
+            let sel_opt_3 = document.getElementById("arfuncional").value
+            let coord_3 = {}
+            switch (sel_opt_3) {
+                case "23": //Dirección 
+                    coord_3 = {
+                        x: 95,
+                        y: 426,
+                    }
+                    break;
+
+                case "24": //Administración
+                    coord_3 = {
+                        x: 95,
+                        y: 417
+                    }
+                    break;
+
+                case "25": //Comercial
+                    coord_3 = {
+                        x: 95,
+                        y: 408
+                    }
+                    break;
+                case "26": //Mantenimiento
+                    coord_3 = {
+                        x: 95,
+                        y: 399
+                    }
+                    break;
+                default: // Producción
+                    coord_3 = {
+                        x: 95,
+                        y: 390
+                    }
+            }
+
+            firstPage.drawText("X", {
+                x: coord_3.x,
+                y: coord_3.y,
+                size: 12,
+                font: helveticaFont,
+            })
+
+
+            let sel_opt_4 = document.getElementById("categoriaso").value
+            let coord_4 = {}
+            switch (sel_opt_4) {
+                case "28": //Directivo/a
+                    coord_4 = {
+                        x: 341,
+                        y: 426
+                    }
+                    break;
+                case "29": //Mando intermedio
+                    coord_4 = {
+                        x: 341,
+                        y: 417
+                    }
+                    break;
+                case "30": //Técnico/a
+                    coord_4 = {
+                        x: 341,
+                        y: 408
+                    }
+                    break;
+                case "31": //Trabajador/a cualificado/a
+                    coord_4 = {
+                        x: 341,
+                        y: 399
+                    }
+                    break;
+                default: // trabajador de baja cualificacion
+                    coord_4 = {
+                        x: 341,
+                        y: 389
+                    }
+
+            }
+
+            firstPage.drawText("X", {
+                x: coord_4.x,
+                y: coord_4.y,
+                size: 12,
+                font: helveticaFont,
+            })
+
+            // Serialize the PDFDocument to bytes (a Uint8Array)
+            const pdfBytes = await pdfDoc.save()
+
+            // Trigger the browser to download the PDF document
+            download(pdfBytes, "resultado2.pdf", "application/pdf");
+        }
+    </script>
 </head>
 
 <body>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 my-3">
-        <img class="img-fluid" width="100" src="https://thecorner.cat/wp-content/uploads/2021/07/Sello-sin-lletres.png"
-          alt="">
-      </div>
+    <div class="container">
 
-      <div class="col-12">
-
-        <h1 class="mb-4">Anexo 1. Solicitud de participación en una acción formativa</h1>
+        <div class="col-lg-6 my-3">
+            <img class="img-fluid" width="100"
+                src="https://thecorner.cat/wp-content/uploads/2021/07/Sello-sin-lletres.png" alt="">
+        </div>
 
         <form class="row g-3 needs-validation" novalidate>
-          <div class="col-md-12">
-            <label for="entidad" class="form-label">Nombre de la Entidad Solicitante</label>
-            <input type="text" class="form-control" id="entidad" value="" required>
-            <div class="valid-feedback">
-              Looks good!
-            </div>
 
-            <div class="invalid-feedback">
-              Escriba una entidad valida.
-            </div>
-          </div>
-
-          <form class="row g-3 needs-validation" novalidate>
-            <div class="col-md-4">
-              <label for="expediente" class="form-label">Num. Expediente</label>
-              <input type="text" class="form-control" id="expediente" value="" required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-
-              <div class="invalid-feedback">
-                Escriba un nombre.
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="acformativa" class="form-label">Num. Accion Formativa</label>
-              <input type="text" class="form-control" id="ac formativa" value="" required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-
-              <div class="invalid-feedback">
-                Escriba un nombre.
-                  </div>
-                </div>
-
-                    <div class="invalid-feedback">
-                        Escriba una entidad valida.
-                      </div>
-                    </div>
-
-                    <form class="row g-3 needs-validation" novalidate>
-                      <div class="col-md-4">
-                        <label for="expediente" class="form-label">Num. Expediente</label>
-                        <input type="text" class="form-control" id="expediente" value="" required>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-
-                        <div class="invalid-feedback">
-                          Escriba un nombre.
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <label for="acformativa" class="form-label">Denominacion Accion formativa</label>
-                        <input type="text" class="form-control" id="accion formativa" value="" required>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-
-                        <div class="invalid-feedback">
-                          Escriba un nombre.
-                        </div>
-                      </div>
-  
-                    <div id="" class="col-md-12">
-                        <label for="nformativa" class="form-label">Numero de la Acción Formativa</label>
-                        <input type="text" class="form-control" id="ac formativa" value="" required>
-                          <div class="valid-feedback">
-                              Looks good!
-                          </div>
-
-                          <div class="invalid-feedback">
-                          Escriba una acción formativa valida.
-                        </div>
-                      </div>
-                </form>
-
-          <h1 class="mb-4">Datos del trabajador / a participante</h1>
-
-          <form class="row g-3 needs-validation" novalidate>
-            <div class="col-md-8">
-              <label for="nombre" class="form-label">Apellidos y Nombres</label>
-              <input type="text" class="form-control" id="apellido y nombre" value="" required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-
-              <div class="invalid-feedback">
-                Escriba un nombre completo.
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="nif" class="form-label">NIF</label>
-              <input type="text" class="form-control" id="nif" value="" required>
-            </div>
-
-            <div class="col-md-4">
-              <label for="fnacimiento" class="form-label">Fecha de Nacimiento</label>
-              <input type="date" class="form-control" id="fecha de nacimiento" value="(dd/mm/aaaa)" required>
-            </div>
-
-            <form class="row g-3 needs-validation" novalidate>
-            <div class="col-md-4">
-              <label for="genero" class="form-label">Género</label>
-              <select class="form-select" id="genero" required>
-                <option selected disabled value="">--Escoje uno--</option>
-
-                <option>Hombre</option>
-
-                <option>Mujer</option>
-
-                <option>No Binario</option>
-
-                <option>No Responde</option>
-
-              </select>
-
-            </div>
-
-            <div class="col-md-4">
-              <label for="nass" class="form-label">NASS</label>
-              <input type="int" class="form-control" id="nass" required>
-            </div>
-            <br>
-
-            </div>
-        </form>
-
-
-  <h1 class="mb-4">Discapacitados</h1>
-  <form class="row g-3 needs-validation" novalidate>
-    <div class="col-md-6">
-      <label for="nombre" class="form-label">Apellidos y Nombres</label>
-      <input type="text" class="form-control" id="apellido y nombre" value="" required>
-      <div class="valid-feedback">
-        Looks good!
-      </div>
-
-      <div class="invalid-feedback">
-        Escriba un nombre completo.
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <label for="nif" class="form-label">Grado de Discapacidad</label>
-      <input type="text" class="form-control" id="nif" value="" required>
-    </div>
-            
-            <div class="col-md-6">
-              <label for="email" class="form-label">Correo Electrónico</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend" required>
-                <div class="invalid-feedback">Escribe un Correo Electrónico Válido.</div>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label for="telefono" class="form-label">Teléfono / Móvil</label>
-              <input type="int" class="form-control" id="telefono/Movil" required>
-            </div>
-
-            <div class="col-md-8">
-              <label for="domicilio" class="form-label">Domicilio</label>
-              <input type="int" class="form-control" id="domicilio" required>
-            </div>
-
-            <div class="col-md-4">
-              <label for="cp" class="form-label">Codigo Postal</label>
-              <input type="text" class="form-control" id="cp" required>
-
-              <div class="invalid-feedback">Por favor, un código postal válido.</div>
-            </div>
-
-                <div class="col-md-12">
-                    <h1 class="mb-4">Formacion Academica</h1>
-
-                    <h3 class="mb-2">Estudios</h3>
-
-                    <form class="row g-3 needs-validation" novalidate>
-                    <select class="formacionacadem" id="formacion academica" required>
-                        <option value="10">--Escoje una Opcion--</option>
-                        <option value="13">Sin Titulacion</option>
-                        <option value="14">Titulo graduado en ESO/ graduado escolar</option>
-                        <option value="15">Titulo Bachillerato</option>
-                        <option value="16">Titulo FP basica / Certificado de Profesionalidad *Nivel 1</option>
-                        <option value="17">Titulo de tecnico /a/ FP grado medio /Certificado de Profesionalidad *Nivel 2 
-                        <option value="18">Titulo de tecnico / a Superior / FP grado Superior /Certificado de Profesionalidad *Nivel 3</option>
-                        <option value="19">Estudios universitarios de ciclo 1 Ciclo (diplomatura-grado)</option>
-                        <option value="20">Estudios universitarios de 2 Ciclo (licenciatura-master)</option>
-                        <option value="21">Otra Titulacion</option>
-                    </select> <br>
-                </div>
-
-                
-                <div class="col-md-6">
-                    <h3 class="mb-2">Area Funcional(Solo Ocupados)</h3>
-                    <select class="areanfunc" id="Area Funcional" required>
-                          <option selected disabled value="">--Escoje uno--</option>
-                            <option value="22">Dirección</option>
-                            <option value="23">Administración</option>
-                            <option value="24">Comercial</option>
-                            <option value="25">Mantenimiento</option>
-                            <option value="26">Producción</option>
-                        </select>
-                        
-                    <h3 class="mb-2">Categoria (Solo Ocupados)</h3>
-                        <select class="categoria" id="categoria" required>
-                            <option selected disabled value="">--Escoje uno--</option>
-                            <option value="27">Directivo/a</option>
-                            <option value="28">Mando Intermedio</option>
-                            <option value="29">Técnico/a</option>
-                            <option value="20">Trabajador/a cualificado/a</option>
-                            <option value="20">Trabajador/a de baja cualificación</option>
-                        </select> <br>
-                </div>
-            
-   
-            <div class="col-md-6">
-              <label for="poblacion" class="form-label">Población</label>
-              <input type="int" class="form-control" id="poblacion" required>
-            </div>
-
-            <div class="col-md-6">
-              <label for="provincia" class="form-label">Provincia</label>
-              <select class="form-select" id="provincia" required>
-                <option selected disabled value="">--Escoje una Provincia--</option>
-                <option>Barcelones</option>
-                <option>Lleida</option>
-                <option>Tarragona</option>
-                <option>Girona</option>
-              </select>
-            </div>
-
+            <h1 class="mb-4">Anexo 1. Solicitud de participación en una acción formativa</h1>
 
             <div class="col-md-12">
-              <label for="validationCustom04" class="form-label">¿A traves de quien conociste el curso?</label>
-              <select class="form-select" id="a traves de quien consiste el curso?" required>
-                <option value="">--Escoje una Opcion--</option>
-                <option value="1">Oficina de trabajo (OT)</option>
-                <option value="2">Buscador de cursos del SOC</option>
-                <option value="3">Twitter del consorci @fpo_continua</option>
-                <option value="4">Web del Consorci: conforcat.gencat.cat</option>
-                <option value="5">Web: fp.gencat.cat</option>
-                <option value="6">Twitter de Ocupacion @ocupaciocat</option>
-                <option value="7">Entidad de Formacion LinkedIn</option>
-                <option value="8">Amigos, amigas o familiares</option>
-                <option value="9">Agentes economicos y sociales</option>
-                <option value="10">Otros</option>
-                <option value="11">Empresa</option>
-                <option value="12">Prensa, radio, television (medios comunicacion)</option>
-              </select>
+                <label for="entidad" class="form-label">Nombre de la Entidad solicitante</label>
+                <input type="text" class="form-control" id="entidad" value="" required>
+
+                <div class="invalid-feedback">Escriba una entidad valida.</div>
+            </div>
+            <div class="col-md-12">
+                <label for="denominacion" class="form-label">Denominación de la acción formativa</label>
+                <input type="text" class="form-control" id="denominacion" value="" required>
+
+                <div class="invalid-feedback">Escriba una acción formativa valida.</div>
             </div>
 
-            <div class="col-md-12">
-              <div class="form-check"> Interes en participar en la accion formativa <br />
-                <input class="form-check-input" type="checkbox" value="" id="Interes en participar" required>
-                <label class="form-check-label" for="invalidCheck"> Autorizo al Consorcio para la Formación
-                  Continua de Cataluña a utilizar mis datos personales para recibir información sobre la
-                  formación</label>
-              </div>
-              <div>
+            <h1 class="mb-4">Datos del trabajador/a participante</h1>
 
-                <div class="col-md-12">
-                  <h1 class="mb-4">Formacion Academica</h1>
-                  <h3 class="mb-2">Estudios</h3>
-                  <select class="form-select" id="Formacion Academica" required>
+            <div class="col-md-8">
+                <label for="nombre" class="form-label">Apellidos y Nombres</label>
+                <input type="text" class="form-control" id="nombre" value="" required>
+
+                <div class="invalid-feedback">Escriba un nombre completo.</div>
+            </div>
+            <div class="col-md-4">
+                <label for="nif" class="form-label">NIF</label>
+                <input type="text" class="form-control" id="nif" value="" required>
+
+                <div class="invalid-feedback">Escriba un NIF correcto.</div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="fechanacimiento" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="fechanacimiento" value="(dd/mm/aaaa)" required>
+            </div>
+            <div class="col-md-4">
+                <label for="genero" class="form-label">Género</label>
+                <select class="form-select" id="genero" required>
+                    <option selected disabled value="">--Escoje uno--</option>
+                    <option>Hombre</option>
+                    <option>Mujer</option>
+                    <option>No Binario</option>
+                    <option>No Responde</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="nass" class="form-label">NASS</label>
+                <input type="text" class="form-control" id="nass" required>
+
+                <div class="invalid-feedback">
+                    Escriba un numero de la seguridad social valido.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend" required>
+
+                    <div class="invalid-feedback">Escribe un correo electrónico válido.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="telefono" class="form-label">Teléfono / Móvil</label>
+                <input type="" class="form-control" id="telefono" required>
+            </div>
+            <div class="col-md-8">
+                <label for="domicilio" class="form-label">Domicilio</label>
+                <input type="text" class="form-control" id="domicilio" required>
+
+                <div class="invalid-feedback">Escriba un domicilio.</div>
+            </div>
+            <div class="col-md-4">
+                <label for="cp" class="form-label">Codigo Postal</label>
+                <input type="text" class="form-control" id="cp" required>
+
+                <div class="invalid-feedback">Por favor, un código postal válido.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="poblacion" class="form-label">Población</label>
+                <input type="text" class="form-control" id="poblacion" required>
+            </div>
+            <div class="col-md-6">
+                <label for="provincia" class="form-label">Provincia</label>
+                <select class="form-select" id="provincia" required>
+                    <option selected disabled value="">--Escoje una Provincia--</option>
+                    <option>Barcelones</option>
+                    <option>Lleida</option>
+                    <option>Tarragona</option>
+                    <option>Girona</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label for="conocurso" class="form-label">¿A traves de quien conociste el curso?</label>
+                <select class="form-select" id="conocurso" required>
                     <option value="">--Escoje una Opcion--</option>
-                    <option value="13">Sin Titulacion</option>
-                    <option value="14">Titulo graduado en ESO/ graduado escolar</option>
-                    <option value="15">Titulo Bachillerato</option>
-                    <option value="16">Titulo FP basica / Certificado de Profesionalidad *Nivel 1</option>
-                    <option value="17">Titulo de tecnico /a/ FP grado medio /Certificado de Profesionalidad *Nivel 2
-                    <option value="18">Titulo de tecnico / a Superior / FP grado Superior /Certificado de
-                      Profesionalidad *Nivel 3</option>
-                    <option value="19">Estudios universitarios de ciclo 1 Ciclo (diplomatura-grado)</option>
-                    <option value="20">Estudios universitarios de 2 Ciclo (licenciatura-master)</option>
-                    <option value="21">Otra Titulacion</option>
-                  </select> <br>
+                    <option value="1">Oficina de trabajo (OT)</option>
+                    <option value="2">Buscador de cursos del SOC</option>
+                    <option value="3">Twitter del consorci @fpo_continua</option>
+                    <option value="4">Web del Consorci: conforcat.gencat.cat</option>
+                    <option value="5">Web: fp.gencat.cat</option>
+                    <option value="6">Twitter de Ocupacion @ocupaciocat</option>
+                    <option value="7">Entidad de Formacion</option>
+                    <option value="8">LinkedIn</option>
+                    <option value="9">Amigos, amigas o familiares</option>
+                    <option value="10">Agentes economicos y sociales</option>
+                    <option value="11">Empresa</option>
+                    <option value="12">Prensa, radio, television (medios comunicacion)</option>
+                    <option value="13">Otros</option>
+
+                </select>
+            </div>
+            <div class="col-md-12">
+                <div class="form-check"> Interes en participar en la accion formativa <br />
+                    <input class="form-check-input" type="checkbox" value="true" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck"> Autorizo al Consorcio para la Formación
+                        Continua de Cataluña a utilizar mis datos personales para recibir información sobre la
+                        formación</label>
                 </div>
+            </div>
 
-
-                <div class="col-md-12">
-                  <h3 class="mb-2">Area Funcional(Solo Ocupados)</h3>
-                  <select class="form-select" id="Area Funcional" required>
+            <!--Formacion Academica-->
+            <div class="col-md-12">
+                <h1 class="mb-4">Formacion Academica</h1>
+                <h3 class="mb-2">Estudios</h3>
+                <select class="form-select" id="facademica" required>
+                    <option value="">--Escoje una Opcion--</option>
+                    <option value="14">Sin Titulacion</option>
+                    <option value="15">Titulo graduado en ESO/ graduado escolar</option>
+                    <option value="16">Titulo Bachillerato</option>
+                    <option value="17">Titulo FP basica / Certificado de Profesionalidad *Nivel 1</option>
+                    <option value="18">Titulo de tecnico /a/ FP grado medio /Certificado de Profesionalidad *Nivel 2
+                    <option value="19">Titulo de tecnico / a Superior / FP grado Superior /Certificado de
+                        Profesionalidad *Nivel 3</option>
+                    <option value="20">Estudios universitarios de ciclo 1 Ciclo (diplomatura-grado)</option>
+                    <option value="21">Estudios universitarios de 2 Ciclo (licenciatura-master)</option>
+                    <option value="22">Otra Titulacion</option>
+                </select> <br>
+            </div>
+            <div class="col-md-6">
+                <h3 class="mb-2">Area Funcional(Solo Ocupados)</h3>
+                <select class="form-select" id="arfuncional" required>
                     <option selected disabled value="">--Escoje uno--</option>
-                    <option value="22">Dirección</option>
-                    <option value="23">Administración</option>
-                    <option value="24">Comercial</option>
-                    <option value="25">Mantenimiento</option>
-                    <option value="26">Producción</option>
-                  </select>
-
-                  <h3 class="mb-2">Categoria (Solo Ocupados)</h3>
-                  <select class="form-select" id="categoria" required>
+                    <option value="23">Dirección</option>
+                    <option value="24">Administración</option>
+                    <option value="25">Comercial</option>
+                    <option value="26">Mantenimiento</option>
+                    <option value="27">Producción</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <h3 class="mb-2">Categoria (Solo Ocupados)</h3>
+                <select class="form-select" id="categoriaso" required>
                     <option selected disabled value="">--Escoje uno--</option>
-                    <option value="27">Directivo/a</option>
-                    <option value="28">Mando Intermedio</option>
-                    <option value="29">Técnico/a</option>
-                    <option value="20">Trabajador/a cualificado/a</option>
-                    <option value="20">Trabajador/a de baja cualificación</option>
-                  </select> <br>
-                </div>
-
-
-                <div class="col-md-12">
-                  <h3>Colectivo</h3>
-
-                  <div class="form-check">
-                    <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Ocupado/a.
-                    <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" />
-                    Desempleado/a
-                    <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Afectado/a
-                    ERTE
-                    <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Situación
-                    cuidador/a no profesional (CPN)
-                  </div>
-                </div>
-
-
-                <h2 class="mb-4">Entidad o empresa donde trabaja actualmente (solo ocupados / as)</h2>
-
-                <p>Empresa con mas de 250 empleados?</p>
-
-                <div class="form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="Entidad o Empresa" value="1">
-                  <label class="form-check-label" for="inlineCheckbox1">Si</label>
-                </div>
-                <div class="form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="Entidad o Empresa" value="2">
-                  <label class="form-check-label" for="inlineCheckbox2">No</label>
-                </div>
-
-          </form>
-        </form>
-      </div>
-    </div>
-
-    <form class="row g-3 needs-validation" novalidate>
-      <div class="col-md-4">
-        <label for="rsocial" class="form-label">Razon Social</label>
-        <input type="text" class="form-control" id="rsocial" value="" required>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-
-        <div class="invalid-feedback">
-          Escriba un nombre.
-        </div>
-      </div>
-
-      <form class="row g-3 needs-validation" novalidate>
-        <div class="col-md-4">
-          <label for="sector" class="form-label">Sector</label>
-          <input type="text" class="form-control" id="sector" value="" required>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-
-          <div class="invalid-feedback">
-            Escriba un nombre.
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <label for="convref" class="form-label">Convenio de referencia</label>
-          <input type="text" class="form-control" id="convenio" value="" required>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-
-          <div class="invalid-feedback">
-            Escriba un apellido.
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <label for="cif" class="form-label">CIF</label>
-          <input type="text" class="form-control" id="cif" value="" required>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-
-          <div class="invalid-feedback">
-            Escriba un apellido.
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <label for="numsegsoc" class="form-label">Núm. de inscripción en la Seguridad Social </label>
-          <input type="text" class="form-control" id="num. seg soc" value="" required>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-
-          <div class="invalid-feedback">
-            Escriba un nombre.
-          </div>
-        </div>
-
-        <form class="row g-3 needs-validation" novalidate>
-          <div class="col-md-4">
-            <label for="nmtrabajador" class="form-label">Nº. de trabajadores</label>
-            <input type="text" class="form-control" id="n trabajador" value="" required>
-            <div class="valid-feedback">
-              Looks good!
+                    <option value="28">Directivo/a</option>
+                    <option value="29">Mando Intermedio</option>
+                    <option value="30">Técnico/a</option>
+                    <option value="31">Trabajador/a cualificado/a</option>
+                    <option value="32">Trabajador/a de baja cualificación</option>
+                </select> <br>
+            </div>
+            <div class="col-md-12">
             </div>
 
-            <div class="invalid-feedback">
-              Escriba un nombre.
-            </div>
-          </div>
+            <h3>Colectivo</h3>
 
-          <div class="col-md-6">
-            <label for="dtrabajo" class="form-label">Dirección del centro de trabajo</label>
-            <input type="text" class="form-control" id="d trabajo" value="" required>
-            <div class="valid-feedback">
-              Looks good!
-            </div>
-
-            <div class="invalid-feedback">
-              Escriba un apellido.
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label for="comarca" class="form-label">Comarca</label>
-            <input type="text" class="form-control" id="comarca" required>
-            <div class="invalid-feedback">
-              Por favor, una ciudad válida.
-            </div>
-          </div>
-
-          <div class="col-md-2">
-            <label for="cp" class="form-label">Codigo Postal</label>
-            <input type="text" class="form-control" id="cp" required>
-            
-            <div class="invalid-feedback">Por favor, un código postal válido.</div>
-        </div>
-
-        <div class="col-md-5">
-            <label for="poblacion" class="form-label">Población</label>
-            <input type="int" class="form-control" id="poblacion" required>
-        </div>
-
-        <div class="col-md-5">
-          <label for="provincia" class="form-label">Provincia</label>
-          <select class="form-select" id="provincia" required>
-            <option selected disabled value="">--Escoje una Provincia--</option>
-            <option>Barcelones</option>
-            <option>Lleida</option>
-            <option>Tarragona</option>
-            <option>Girona</option>
-          </select>
-        </div> <br>
-
-          <p>Protección de datos: a los efectos previstos a la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de
-            Datos Personales ygarantía de los derechos digitales, y al Reglamento (UE) 2016/679 del Parlamento Europeo y
-            del consejo de 27 de abril de 2016, relativo a la protección de los personas físicas respecto al tratamiento
-            de datos personales y a la libre circulación de estos datos y por el cual sederoga la Directiva 95/46/CE
-            (Reglamento general de protección de datos) y la Ley Orgánica 15/1999, de 13 de diciembre, de protección de
-            datos de carácter personal, y su Reglamento de despliegue, aprobado por el Real Decreto 1720/2007, de 21 de
-            diciembre, se informa la persona interesada que los datos personales consignados en este documento se
-            incorporaran al fichero automatizado del Consorcio para la Formación Continua de Cataluña, “Contratos
-            programa y Convenios para la Formación Continua”, con el fin de gestionar y tratar los datos
-            correspondientes. Asímismo, las personas interesadas pueden ejercer los derechos de afectado/a mediante
-            escrito a la Subdirecciónde Planificación, Innovación y Recursos Humanos del Consorcio para la Formación
-            Continua de Cataluña, calle Llull, 297-307, 4.ª planta, 08019 Barcelona, o a la dirección de correo
-            electrónico lopd@conforcat.cat.1.Autorizo al Consorcio para la Formación Continua de Cataluña a verificar el
-            grado de discapacidad mediante el certificado queel Departamento de Acción Social y Ciudadanía emite a
-            través de la aplicación informática PICA.2.Trabajadores/oras incluidos/das enlos grupos de cotización de la
-            Seguridad Social: 6, 7, 9 y 10, o nivel de estudios igual o inferior a ESO para trabajadores/oras
-            desocupados/das.3.Consignad el código de acuerdo con la relación siguiente:RG RégimengeneralEH
-            Trabajadores/as del hogarFD Fijos discontinuos en periodosde no-ocupaciónDF Trabajadores/as que acceden al
-            paro durante el periodoformativoRE Regulación de ocupación en periodosde no-ocupaciónAGP Régimenespecial
-            agrariopor cuenta propiaRLE Trabajadores/as conrelaciones laborales de carácter especial (reguladas por
-            artículo2del estatuto de Trabajadores)AGA Régimenespecial agrariopor cuenta ajenaCESS Trabajadores/as con
-            convenio especial con la Seguridad SocialAU Régimen especial de autónomosTM Trabajadores/ras (incluidos/as
-            al régimenespecial del marCP Mutualistas de Colegios Profesionales no incluidoscomoautónomosAP
-            AdministraciónpúblicaFDI Trabajadores/as a tiempo parcial de carácter indefinido con Trabajo discontinuo) y
-            en periodosde no-ocupació</p>
-
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Declaro que he sido informado por parte de la entidad de que el curso para el cual solicito la inscripción
-              forma parte de losprogramas de formación profesional para la ocupación dirigidos prioritariamente a
-              personas trabajadoras ocupadas, subvencionados por el Consorcio para la Formación de Cataluña
-            </label>
-          </div>
-
-          <div class="col-12">
             <div class="form-check">
-              <input type="checkbox" onChange="cambiarCondiciones()" id="condiciones" name="condiciones" /> Estoy de
-              acuerdo con los <a href="terminos.html" target="_blank" class="enlace-terminos">términos y condiciones</a>
-              
-          <button class="btn btn-primary" type="submit">Enviar</button>
-          <button class="btn btn-secondary" type="reset">Limpiar Formulario</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+                <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Ocupado/a
+                <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Desempleado/a
+                <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Afectado/a
+                ERTE
+                <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Situación
+                cuidador/a no profesional (CPN)
+            </div>
 
-  
-  </div>
-  <p>Click the button to create a new PDF document with</p>
-  <button onclick="createPdf()">Create PDF</button>
+            <h2 class="mb-4">Entidad o empresa donde trabaja actualmente (solo ocupados / as)</h2>
+            <p>Empresa con mas de 250 empleados?</p>
+
+            <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
+                <label class="form-check-label" for="inlineCheckbox1">Si</label>
+            </div>
+            <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2">
+                <label class="form-check-label" for="inlineCheckbox2">No</label>
+            </div>
+
+            <div class="col-md-4">
+                <label for="rsocial" class="form-label">Razon Social</label>
+                <input type="text" class="form-control" id="razonsocial" value="" required>
+
+                <div class="invalid-feedback">Escriba una razon social.</div>
+            </div>
+            <div class="col-md-4">
+                <label for="sector" class="form-label">Sector</label>
+                <input type="text" class="form-control" id="sector" value="" required>
+
+                <div class="invalid-feedback">Escriba un sector.</div>
+            </div>
+            <div class="col-md-4">
+                <label for="convenio" class="form-label">Convenio de referencia</label>
+                <input type="text" class="form-control" id="convenio" value="" required>
+
+                <div class="invalid-feedback">Escriba un convenio referencia valido.</div>
+            </div>
+            <div class="col-md-4">
+                <label for="cif" class="form-label">CIF</label>
+                <input type="text" class="form-control" id="cif" value="" required>
+
+                <div class="invalid-feedback">Escriba un CIF valido</div>
+            </div>
+            <div class="col-md-4">
+                <label for="inscripcionss" class="form-label">Núm. de inscripción en la Seguridad Social </label>
+                <input type="text" class="form-control" id="inscripcionss" value="" required>
+
+                <div class="invalid-feedback">Escriba un numero de la seguridad social valido</div>
+            </div>
+            <div class="col-md-4">
+                <label for="ntrabajadores" class="form-label">Nº. de trabajadores</label>
+                <input type="text" class="form-control" id="ntrabajadores" value="" required>
+
+                <div class="invalid-feedback">Escriba el numero de trabajadores.</div>
+            </div>
+            <div class="col-md-8">
+                <label for="centrotrabajo" class="form-label">Dirección del centro de trabajo</label>
+                <input type="text" class="form-control" id="centrotrabajo" value="" required>
+
+                <div class="invalid-feedback">Escriba una direccion valida.</div>
+            </div>
+            <div class="col-md-4">
+                <label for="comarca2" class="form-label">Comarca</label>
+                <select class="form-select" id="comarca2" required>
+                    <option selected disabled value="">--Escoje una comarca--</option>
+                    <option>L'Alt Camp</option>
+                    <option>L'Alt Empordà</option>
+                    <option>L'Alt Penedès</option>
+                    <option>L'Alt Urgell</option>
+                    <option>L'Alta Ribagorça</option>
+                    <option>L'Anoia</option>
+                    <option>El Bages</option>
+                    <option>El Baix Campa</option>
+                    <option>El Baix Ebre</option>
+                    <option>El Baix Empordà</option>
+                    <option>El Baix Llobregat</option>
+                    <option>El Baix Penedès</option>
+                    <option>El Barcelonès</option>
+                    <option>El Berguedà</option>
+                    <option>La Cerdanya</option>
+                    <option>La Conca de Barberà</option>
+                    <option>El Garraf</option>
+                    <option>Les Garrigues</option>
+                    <option>La Garrotxa</option>
+                    <option>El Gironès</option>
+                    <option>El Maresme</option>
+                    <option>El Montsià</option>
+                    <option>La Noguera</option>
+                    <option>Osona</option>
+                    <option>El Pallars Jussà</option>
+                    <option>El Pallars Sobirà</option>
+                    <option>El Pla de l'Estany</option>
+                    <option>El Pla d'Urgell</option>
+                    <option>El Priorat</option>
+                    <option>La Ribera d'Ebre</option>
+                    <option>El Ripollès</option>
+                    <option>La Segarra</option>
+                    <option>El Segrià</option>
+                    <option>La Selva</option>
+                    <option>El Solsonès</option>
+                    <option>El Tarragonès</option>
+                    <option>La Terra Alta</option>
+                    <option>L'Urgell</option>
+                    <option>La Vall d'Aran</option>
+                    <option>El Vallès Occidental</option>
+                    <option>El Vallès Oriental</option>
+
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="cp2" class="form-label">Codigo Postal</label>
+                <input type="text" class="form-control" id="cp2" required>
+
+                <div class="invalid-feedback">Por favor, un código postal válido.</div>
+            </div>
+            <div class="col-md-5">
+                <label for="poblacion2" class="form-label">Población</label>
+                <input type="text" class="form-control" id="poblacion2" required>
+            </div>
+            <div class="col-md-5">
+                <label for="provincia2" class="form-label">Provincia</label>
+                <select class="form-select" id="provincia2" required>
+                    <option selected disabled value="">--Escoje una Provincia--</option>
+                    <option>Barcelones</option>
+                    <option>Lleida</option>
+                    <option>Tarragona</option>
+                    <option>Girona</option>
+                </select>
+            </div> <br>
+            <span class="d-block pb-2">Firma digital aqui</span>
+                    <div class="signature mb-2" style="width: 100%; height: 200px;">
+                        <canvas id="signature-canvas"
+                            style="border: 1px dashed red; width: 100%; height: 200px;"></canvas>
+                    </div>
+            <p>Protección de datos: a los efectos previstos a la Ley Orgánica 3/2018, de 5 de diciembre, de Protección
+                de Datos Personales ygarantía de los derechos digitales, y al Reglamento (UE) 2016/679 del Parlamento
+                Europeo y del consejo de 27 de abril de 2016, relativo a la protección de los personas físicas respecto
+                al tratamiento de datos personales y a la libre circulación de estos datos y por el cual sederoga la
+                Directiva 95/46/CE (Reglamento general de protección de datos) y la Ley Orgánica 15/1999, de 13 de
+                diciembre, de protección de datos de carácter personal, y su Reglamento de despliegue, aprobado por el
+                Real Decreto 1720/2007, de 21 de diciembre, se informa la persona interesada que los datos personales
+                consignados en este documento se incorporaran al fichero automatizado del Consorcio para la Formación
+                Continua de Cataluña, “Contratos programa y Convenios para la Formación Continua”, con el fin de
+                gestionar y tratar los datos correspondientes. Asímismo, las personas interesadas pueden ejercer los
+                derechos de afectado/a mediante escrito a la Subdirecciónde Planificación, Innovación y Recursos Humanos
+                del Consorcio para la Formación Continua de Cataluña, calle Llull, 297-307, 4.ª planta, 08019 Barcelona,
+                o a la dirección de correo electrónico lopd@conforcat.cat.1.Autorizo al Consorcio para la Formación
+                Continua de Cataluña a verificar el grado de discapacidad mediante el certificado queel Departamento de
+                Acción Social y Ciudadanía emite a través de la aplicación informática PICA.2.Trabajadores/oras
+                incluidos/das enlos grupos de cotización de la Seguridad Social: 6, 7, 9 y 10, o nivel de estudios igual
+                o inferior a ESO para trabajadores/oras desocupados/das.3.Consignad el código de acuerdo con la relación
+                siguiente:RG RégimengeneralEH Trabajadores/as del hogarFD Fijos discontinuos en periodosde
+                no-ocupaciónDF Trabajadores/as que acceden al paro durante el periodoformativoRE Regulación de ocupación
+                en periodosde no-ocupaciónAGP Régimenespecial agrariopor cuenta propiaRLE Trabajadores/as conrelaciones
+                laborales de carácter especial (reguladas por artículo2del estatuto de Trabajadores)AGA Régimenespecial
+                agrariopor cuenta ajenaCESS Trabajadores/as con convenio especial con la Seguridad SocialAU Régimen
+                especial de autónomosTM Trabajadores/ras (incluidos/as al régimenespecial del marCP Mutualistas de
+                Colegios Profesionales no incluidoscomoautónomosAP AdministraciónpúblicaFDI Trabajadores/as a tiempo
+                parcial de carácter indefinido con Trabajo discontinuo) y en periodosde no-ocupació</p>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Declaro que he sido informado por parte de la entidad de que el curso para el cual solicito la
+                    inscripción forma parte de losprogramas de formación profesional para la ocupación dirigidos
+                    prioritariamente a personas trabajadoras ocupadas, subvencionados por el Consorcio para la Formación
+                    de Cataluña
+                </label>
+            </div>
+            <div class="col-12">
+                <div class="form-check">
+                    <input type="checkbox" onChange="" id="condiciones" name="condiciones" /> Estoy
+                    de acuerdo con los <a href="terminos.html" target="_blank" class="enlace-terminos">términos y
+                        condiciones</a> <br>
+                    <!--input class="btn btn-secondary" type="reset" value="Limpiar Formulario"-->
+                </div>
+            </div>
+        </form>
+        <button id="enviar" class="btn btn-primary"   onclick="createPdf()">enviar </button>
+
+    </div>
+
 
 </body>
+
 </html>
