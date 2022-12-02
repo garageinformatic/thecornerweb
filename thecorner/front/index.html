@@ -349,48 +349,52 @@
                         y: 492,
                     }
                     break;
-                case "15": //Titulo tecnico superior nivel 3
-                    coord_2 = {
-                        x: 341,
-                        y: 492
-                    }
-                    break;
-                case "16": //Titulo de graduado ESO
+                    case "15": //Titulo de graduado ESO
                     coord_2 = {
                         x: 95,
                         y: 484
                     }
                     break;
-                case "17": //Estudios universitarios 1º ciclo
-                    coord_2 = {
-                        x: 341,
-                        y: 474
-                    }
-                    break;
-                case "18": //Titulo bachillerato
+                    case "16": //Titulo bachillerato
                     coord_2 = {
                         x: 95,
                         y: 474
                     }
                     break;
-                case "19": //Titulo FP nivel 1
+                    case "17": //Titulo FP nivel 1
                     coord_2 = {
                         x: 95,
                         y: 464
                     }
                     break;
-                case "20": //Estudios universitarios 2º ciclo
-                    coord_2 = {
-                        x: 95,
-                        y: 456
-                    }
-                    break;
-                case "21": //Titulo tecnico FP
+                    case "18": //Titulo tecnico FP
                     coord_2 = {
                         x: 341,
                         y: 474
                     }
                     break;
+                case "19": //Titulo tecnico superior nivel 3
+                    coord_2 = {
+                        x: 341,
+                        y: 492
+                    }
+                    break;
+                
+                case "20": //Estudios universitarios 1º ciclo
+                    coord_2 = {
+                        x: 341,
+                        y: 474
+                    }
+                    break;
+                
+                
+                case "21": //Estudios universitarios 2º ciclo
+                    coord_2 = {
+                        x: 95,
+                        y: 456
+                    }
+                    break;
+                
                 default: // Otra titulacion
                     coord_2 = {
                         x: 341,
@@ -407,27 +411,27 @@
             let sel_opt_3 = document.getElementById("arfuncional").value
             let coord_3 = {}
             switch (sel_opt_3) {
-                case "22": //Dirección 
+                case "23": //Dirección 
                     coord_3 = {
                         x: 95,
                         y: 426,
                     }
                     break;
 
-                case "23": //Administración
+                case "24": //Administración
                     coord_3 = {
                         x: 95,
                         y: 417
                     }
                     break;
 
-                case "24": //Comercial
+                case "25": //Comercial
                     coord_3 = {
                         x: 95,
                         y: 408
                     }
                     break;
-                case "25": //Mantenimiento
+                case "26": //Mantenimiento
                     coord_3 = {
                         x: 95,
                         y: 399
@@ -451,25 +455,25 @@
             let sel_opt_4 = document.getElementById("categoriaso").value
             let coord_4 = {}
             switch (sel_opt_4) {
-                case "27": //Directivo/a
+                case "28": //Directivo/a
                     coord_4 = {
                         x: 341,
                         y: 426
                     }
                     break;
-                case "28": //Mando intermedio
+                case "29": //Mando intermedio
                     coord_4 = {
                         x: 341,
                         y: 417
                     }
                     break;
-                case "29": //Técnico/a
+                case "30": //Técnico/a
                     coord_4 = {
                         x: 341,
                         y: 408
                     }
                     break;
-                case "30": //Trabajador/a cualificado/a
+                case "31": //Trabajador/a cualificado/a
                     coord_4 = {
                         x: 341,
                         y: 399
@@ -637,14 +641,14 @@
                 <select class="form-select" id="facademica" required>
                     <option value="">--Escoje una Opcion--</option>
                     <option value="14">Sin Titulacion</option>
-                    <option value="15">Titulo de tecnico / a Superior / FP grado Superior /Certificado de
+                    <option value="15">Titulo graduado en ESO/ graduado escolar</option>
+                    <option value="16">Titulo Bachillerato</option>
+                    <option value="17">Titulo FP basica / Certificado de Profesionalidad *Nivel 1</option>
+                    <option value="18">Titulo de tecnico /a/ FP grado medio /Certificado de Profesionalidad *Nivel 2
+                    <option value="19">Titulo de tecnico / a Superior / FP grado Superior /Certificado de
                         Profesionalidad *Nivel 3</option>
-                    <option value="16">Titulo graduado en ESO/ graduado escolar</option>
-                    <option value="17">Estudios universitarios de ciclo 1 Ciclo (diplomatura-grado)</option>
-                    <option value="18">Titulo Bachillerato</option>
-                    <option value="19">Titulo FP basica / Certificado de Profesionalidad *Nivel 1</option>
-                    <option value="20">Estudios universitarios de 2 Ciclo (licenciatura-master)</option>
-                    <option value="21">Titulo de tecnico /a/ FP grado medio /Certificado de Profesionalidad *Nivel 2
+                    <option value="20">Estudios universitarios de ciclo 1 Ciclo (diplomatura-grado)</option>
+                    <option value="21">Estudios universitarios de 2 Ciclo (licenciatura-master)</option>
                     <option value="22">Otra Titulacion</option>
                 </select> <br>
             </div>
@@ -652,22 +656,22 @@
                 <h3 class="mb-2">Area Funcional(Solo Ocupados)</h3>
                 <select class="form-select" id="arfuncional" required>
                     <option selected disabled value="">--Escoje uno--</option>
-                    <option value="22">Dirección</option>
-                    <option value="23">Administración</option>
-                    <option value="24">Comercial</option>
-                    <option value="25">Mantenimiento</option>
-                    <option value="26">Producción</option>
+                    <option value="23">Dirección</option>
+                    <option value="24">Administración</option>
+                    <option value="25">Comercial</option>
+                    <option value="26">Mantenimiento</option>
+                    <option value="27">Producción</option>
                 </select>
             </div>
             <div class="col-md-6">
                 <h3 class="mb-2">Categoria (Solo Ocupados)</h3>
                 <select class="form-select" id="categoriaso" required>
                     <option selected disabled value="">--Escoje uno--</option>
-                    <option value="27">Directivo/a</option>
-                    <option value="28">Mando Intermedio</option>
-                    <option value="29">Técnico/a</option>
-                    <option value="30">Trabajador/a cualificado/a</option>
-                    <option value="31">Trabajador/a de baja cualificación</option>
+                    <option value="28">Directivo/a</option>
+                    <option value="29">Mando Intermedio</option>
+                    <option value="30">Técnico/a</option>
+                    <option value="31">Trabajador/a cualificado/a</option>
+                    <option value="32">Trabajador/a de baja cualificación</option>
                 </select> <br>
             </div>
             <div class="col-md-12">
