@@ -1,3 +1,4 @@
+
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (() => {
         'use strict'
@@ -27,7 +28,7 @@
     var alertTrigger = document.getElementById('liveAlertBtn')
 
 
-    const { PDFDocument, StandardFonts, rgb, degrees } = PDFLib
+    //const { PDFDocument, StandardFonts, rgb, degrees } = PDFLib
 
     async function createPdf() {
         //hemos hecho document.getElementById con el id de c/uno de los valores 
@@ -38,11 +39,11 @@
         datos = {
             entidad: document.getElementById("entidad").value,
             expediente: document.getElementById("expediente").value,
+            denominacion: document.getElementById("denominacion").value,
             acformativa: document.getElementById("acformativa").value,
-            nformativa: document.getElementById("nformativa").value,
             nombre: document.getElementById("nombre").value,
             nif: document.getElementById("nif").value,
-            fnacimiento: document.getElementById("fnacimiento").value,
+            fechanacimiento: document.getElementById("fechanacimiento").value,
             genero: document.getElementById("genero").value,
             nass: document.getElementById("nass").value,
             domicilio: document.getElementById("domicilio").value,
@@ -53,7 +54,6 @@
             telefono: document.getElementById("telefono").value,
             movil: document.getElementById("movil").value,
         }
-
 
         vals = [
             {
@@ -72,7 +72,7 @@
                 y: 718,
             },
             {
-                key: "numero",
+                key: "acformativa",
                 x: 435,
                 y: 718,
             },
@@ -87,7 +87,7 @@
                 y: 685,
             },
             {
-                key: "fecha",
+                key: "fechanacimiento",
                 x: 80,
                 y: 665,
             },
@@ -102,11 +102,6 @@
                 y: 665,
             },
             {
-                key: "poblacion",
-                x: 350,
-                y: 665,
-            },
-            {
                 key: "domicilio",
                 x: 80,
                 y: 645,
@@ -117,10 +112,15 @@
                 y: 645,
             },
             {
+                key: "poblacion",
+                x: 350,
+                y: 665,
+            },
+            {
                 key: "comarca",
                 x: 115,
                 y: 632,
-            },
+            },                      
             {
                 key: "email",
                 x: 146,
@@ -139,21 +139,21 @@
         ]
             //hemos hecho otro objeto para empresa
             //esto lo dejo así hasta que los del formulario rellenen bien los campos y poder coger los id 
-        entidad = {
-            rsocial: "nmmmmmoioojdjdndfnfnddndf",
-            sector: "aqui mismo",
-            convenio: "ni idea",
-            cif: "00000000k",
-            ss: "088880000-12",
-            trabajadores: "x",
-            direccion: "lejos de aqui cerca de alla",
-            cp: "08860",
-            poblacion: "cornella",
-            comarca: "baix del llobregat",
+        empresa = {
+            razonsocial: document.getElementById("razonsocial").value,
+            sector: document.getElementById("sector").value,
+            convenio: document.getElementById("convenio").value,
+            cif: document.getElementById("cif").value,
+            ntrabajadores: document.getElementById("ntrabajadores").value,
+            centrotrabajo: document.getElementById("centrotrabajo").value,
+            cp2: document.getElementById("cp2").value,
+            poblacion2: document.getElementById("poblacion2").value,
+            comarca2: document.getElementById("comarca2").value,
         }
-        cord = [
+        
+        vals2 = [
             {
-                key: "rsocial",
+                key: "razonsocial",
                 x: 80,
                 y: 310,
             },
@@ -173,32 +173,32 @@
                 y: 273,
             },
             {
-                key: "ss",
+                key: "inscripcionss",
                 x: 200,
                 y: 273,
             },
             {
-                key: "trabajadores",
+                key: "ntrabajadores",
                 x: 410,
                 y: 273,
             },
             {
-                key: "direccion",
+                key: "centrotrabajo",
                 x: 80,
                 y: 253,
             },
             {
-                key: "cp",
+                key: "cp2",
                 x: 80,
                 y: 235,
             },
             {
-                key: "poblacion",
+                key: "poblacion2",
                 x: 140,
                 y: 235,
             },
             {
-                key: "comarca",
+                key: "comarca2",
                 x: 400,
                 y: 235,
             }
@@ -233,9 +233,9 @@
             })
         }
         for (let i = 0; i < cord.length; i++) {
-            firstPage.drawText(empresa[cord[i].key], {
-                x: cord[i].x,
-                y: cord[i].y,
+            firstPage.drawText(empresa[vals2[i].key], {
+                x: vals2[i].x,
+                y: vals2[i].y,
                 size: mySize,
                 font: myFont,
             })
@@ -244,7 +244,7 @@
 
         //ESCRIBO LAS X en el bloque de opciones 1
         //el formulario nos enviará un valor de 1 a 12 
-        let sel_opt_1 = document.getElementById('floatingSelect').value;
+        let sel_opt_1 = 6 //OJO
         //Delcaro un objeto coordenadas para el bloque de opciones 1
         //al principio será vacío
         //let sel_opt_1 = 4
@@ -339,65 +339,63 @@
         //FORMACION ACADEMICA
         //SI COMENTAMOS DESDE LA 727 HASTA 792 NOS SALE TODO LO QUE TENEMOS HASTA AHORA
         //FALTA ESTA PARTE, AUN NO ESTA EL HTML DE FORMACION ACADEMICA
-        /*let sel_opt_2 = document.getElementById('').value;   //falta  ID   
+        let sel_opt_2 = 5   
         let coord_2 = {}
         switch (sel_opt_2){
             case 1: //Sin titulacion
                 coord_2 = {
-                    x: 84,
-                    y: 602,
+                    x: 95,
+                    y: 492,
                 }
                 break;
             case 2: //Titulo de graduado ESO
                 coord_2 = {
-                    x: 245,
-                    y: 602
+                    x: 341,
+                    y: 492
                 }
                 break;
             case 3: //Titulo bachillerato
                 coord_2 = {
-                    x: 391,
-                    y: 602
+                    x: 95,
+                    y: 483
                 }
                 break;
             case 4: //Titulo FP
                 coord_2 = {
-                    x: 84,
-                    y: 592
+                    x: 95,
+                    y: 474
                 }
                 break;
             case 5: //Titulo tecnico FP
                 coord_2 = {
-                    x: 245,
-                    y: 592
+                    x: 341,
+                    y: 474
                 }
                 break;
             case 6: //Titulo tecnico superior
                 coord_2 = {
-                    x: 391,
-                    y: 592
+                    x: 95,
+                    y: 465
                 }
                 break;
             case 7: //Estudios universitarios 1º ciclo
                 coord_2 = {
-                    x: 84,
-                    y: 581
+                    x: 341,
+                    y: 465
                 }
                 break;
             case 8: //Estudios universitarios 2º ciclo
                 coord_2 = {
-                    x: 245,
-                    y: 581
+                    x: 95,
+                    y: 456
                 }
                 break;
-            case 9: // Otra titulacion
+            default: // Otra titulacion
                 coord_2 = {
-                    x: 391,
-                    y: 581
+                    x: 341,
+                    y: 456
                 }
-                break;
-            
-        }
+                    }
         firstPage.drawText("X", {
             x: coord_2.x,
             y: coord_2.y,
@@ -405,72 +403,75 @@
             font: helveticaFont,         
         })
         //AREA FUNCIONAL
-        let sel_opt_3 = document.getElementById('').value;   //falta  ID   
+        let sel_opt_3 = 9
         let coord_3 = {}
         switch (sel_opt_3){
-            case 1: //Sin titulacion
+            case 1: //Dirección 
                 coord_3 = {
-                    x: 84,
-                    y: 602,
+                    x: 95,
+                    y: 426,
                 }
                 break;
-            case 2: //Titulo de graduado ESO
+            case 2: //Directivo/a
                 coord_3 = {
-                    x: 245,
-                    y: 602
+                    x: 341,
+                    y: 426
                 }
                 break;
-            case 3: //Titulo bachillerato
+            case 3: //Administración
                 coord_3 = {
-                    x: 391,
-                    y: 602
+                    x: 95,
+                    y: 417
                 }
                 break;
-            case 4: //Titulo FP
+            case 4: //Mando intermedio
                 coord_3 = {
-                    x: 84,
-                    y: 592
+                    x: 341,
+                    y: 417
                 }
                 break;
-            case 5: //Titulo tecnico FP
+            case 5: //Comercial
                 coord_3 = {
-                    x: 245,
-                    y: 592
+                    x: 95,
+                    y: 408
                 }
                 break;
-            case 6: //Titulo tecnico superior
+            case 6: //Técnico/a
                 coord_3 = {
-                    x: 391,
-                    y: 592
+                    x: 341,
+                    y: 408
                 }
                 break;
-            case 7: //Estudios universitarios 1º ciclo
+            case 7: //Mantenimiento
                 coord_3 = {
-                    x: 84,
-                    y: 581
+                    x: 95,
+                    y: 399
                 }
                 break;
-            case 8: //Estudios universitarios 2º ciclo
+            case 8: //Trabajador/a cualificado/a
                 coord_3 = {
-                    x: 245,
-                    y: 581
+                    x: 341,
+                    y: 399
                 }
                 break;
-            case 9: // Otra titulacion
+            case 9: // Producción
                 coord_3 = {
-                    x: 391,
-                    y: 581
+                    x: 95,
+                    y: 390
                 }
                 break;
-            
+                default://Trabajador/a de baja cualificación
+                coord_3= {
+                x: 341,
+                y: 390
+                }
         }
         firstPage.drawText("X", {
             x: coord_3.x,
             y: coord_3.y,
             size: 12,
             font: helveticaFont,         
-        })*/
-
+        })
 
         // Serialize the PDFDocument to bytes (a Uint8Array)
         const pdfBytes = await pdfDoc.save()
