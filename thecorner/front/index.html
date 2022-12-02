@@ -126,6 +126,7 @@
                 fechanacimiento: document.getElementById("fechanacimiento").value,
                 genero: document.getElementById("genero").value,
                 nass: document.getElementById("nass").value,
+                discapacidad : document.getElementById("discapacidad").value,
                 domicilio: document.getElementById("domicilio").value,
                 cp: document.getElementById("cp").value,
                 poblacion: document.getElementById("poblacion").value,
@@ -135,6 +136,10 @@
 
 
             datos = Object.assign(leadData, additionalData);
+
+            if (discapacidad == "true"){
+                        
+            }
             
             vals = [
                 {
@@ -280,11 +285,6 @@
             ]
 
 
-
-
-
-
-
             // Fetch an existing PDF document
             const url = "./documento.pdf"
             const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
@@ -332,7 +332,26 @@
             //let sel_opt_1 = 4
 
             let coord = {}
-
+            
+            switch (additionalData.discapacidad) {
+                case "Si": 
+                    coord = {
+                        x: 450,
+                        y: 665,
+                    }
+                    break;
+                default:
+                    coord = {
+                        x: 484,
+                        y: 665,
+                    }
+            }
+            firstPage.drawText("X", {
+                x: coord.x,
+                y: coord.y,
+                size: 10,
+                font: helveticaFont,
+            })
             switch (empresa.conocurso) {
                 case "1": //Oficina de Trabajo (OT)
                     coord = {
@@ -660,9 +679,9 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <label for="genero" class="form-label">Discapacidad</label>
-                <select class="form-select" id="genero" required>
-                    <option selected disabled value="">--Escoje uno--</option>
+                <label for="discapacidad" class="form-label">Discapacidad</label>
+                <select class="form-select" id="discapacidad" required>
+                    <option selected disabled>--Escoje uno--</option>
                     <option>Si</option>
                     <option>No</option>
                     
