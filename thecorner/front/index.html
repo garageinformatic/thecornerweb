@@ -140,15 +140,13 @@
                 domicilio: document.getElementById("domicilio").value,
                 cp: document.getElementById("cp").value,
                 poblacion: document.getElementById("poblacion").value,
+                colectivo: document.getElementById("colectivo").value, //vals: 1-4
+                
             }
-
-            
-
 
             datos = Object.assign(leadData, additionalData);
             sendPersonalData(datos);
 
-            
             vals = [
                 {
                     key: "entidad",
@@ -708,7 +706,7 @@
                 </select>
             </div>
             <div class="col-md-2">
-                <label for="nass" class="form-label">NASS</label>
+                <label for="nass" class="form-label">Num. Seguridad Social</label>
                 <input type="text" class="form-control" id="nass" required>
 
                 <div class="invalid-feedback">
@@ -718,9 +716,8 @@
             <div class="col-md-2">
                 <label for="discapacidad" class="form-label">Discapacidad</label>
                 <select class="form-select" id="discapacidad" required>
-                    <option selected disabled>--Escoje uno--</option>
-                    <option>Si</option>
                     <option>No</option>
+                    <option>Si</option>
                     
                 </select>
             </div>
@@ -758,7 +755,7 @@
                 <label for="provincia" class="form-label">Provincia</label>
                 <select class="form-select" id="provincia" required>
                     <option selected disabled value="">--Escoje una Provincia--</option>
-                    <option>Barcelones</option>
+                    <option>Barcelona</option>
                     <option>Lleida</option>
                     <option>Tarragona</option>
                     <option>Girona</option>
@@ -785,7 +782,7 @@
                 </select>
             </div>
             <div class="col-md-12">
-                <div class="form-check"> Interes en participar en la accion formativa <br />
+                <div class="form-check"> 
                     <input class="form-check-input" type="checkbox" value="true" id="autorizconsorcio" required>
                     <label class="form-check-label" for="autorizconsorcio"> Autorizo al Consorcio para la Formación
                         Continua de Cataluña a utilizar mis datos personales para recibir información sobre la
@@ -837,24 +834,22 @@
             </div>
 
             <h3>Colectivo</h3>
+            <select class="form-select" id="colectivo" required>
+                <option selected disabled value="">--Escoje uno--</option>
+                <option value="1">Ocupado/a</option>
+                <option value="2">Desempleado/a </option>
+                <option value="3">Afectado/a ERTE </option>
+                <option value="4">Cuidador/a no profesional (CPN)</option>
 
-            <div class="form-check">
-                <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Ocupado/a
-                <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Desempleado/a
-                <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Afectado/a
-                ERTE
-                <input type="checkbox" onChange="cambiarCondiciones()" id="colectivo" name="colectivo" /> Situación
-                cuidador/a no profesional (CPN)
-            </div>
+            </select> <br>
 
             <h2 class="mb-4">Entidad o empresa donde trabaja actualmente (solo ocupados / as)</h2>
-            <p>Empresa con mas de 250 empleados?</p>
+            
 
             <div class="form-check-inline">
+                <p>Empresa con mas de 250 empleados?</p>
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
                 <label class="form-check-label" for="inlineCheckbox1">Si</label>
-            </div>
-            <div class="form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2">
                 <label class="form-check-label" for="inlineCheckbox2">No</label>
             </div>
