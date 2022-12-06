@@ -274,12 +274,12 @@ add_action( 'rest_api_init', function () {
   
     $result = $wpdb->get_results( $wpdb->prepare( $sql, $post_id ) );
   
-    return $wpdb->dbname;
+    return $result;
   }
   function getUsers($data) {
     global $wpdb;
   
-    $table = $wpdb-> prefix .'preusers';
+    $table = $wpdb-> dbname .'preusers';
     $sql = "SELECT * FROM $table where id = %d";
     $post_id = $data['id'];
   
@@ -388,17 +388,26 @@ add_action( 'rest_api_init', function () {
   function postUsers($data) {
     global $wpdb;
     
-    $table = $wpdb-> wp_9unxs.'preusers';
-    
+    $table = $wpdb-> dbname . '.preusers';
+
+    $sql = "INSERT INTO $table (`nombre`, `nif`, `email`, `telefono`) 
+      VALUES ('$data[nombre]', '$data[nif]', '$data[email]', '$data[telefono]')";
+
+    $result = $wpdb->get_results( $wpdb->prepare( $sql,) );
+     /*
     $wpdb->query( "INSERT INTO `$table` (`nombre`, `nif`, `email`, `telefono`) 
       VALUES ('$data[nombre]', '$data[nif]', '$data[email]', '$data[telefono]')");
     return $wpdb;
+    */
+
+    return $wpdb;
+
   }
 
   function postAdiUsers($data) {
     global $wpdb;
     
-    $table = $wpdb-> wp_9unxs.'preusers';
+    $table = $wpdb-> dbname.'.preusers';
     
     $wpdb->query( "INSERT INTO `$table` (`entidad`, `denominacion`, `fnacimiento`, `genero`, 
       `nass`, `domicilio`, `cp`, `poblacion`) 
@@ -411,7 +420,7 @@ add_action( 'rest_api_init', function () {
   function postPersUsers($data) {
     global $wpdb;
     
-    $table = $wpdb-> wp_9unxs.'preusers';
+    $table = $wpdb-> dbname.'.preusers';
     
     $wpdb->query( "INSERT INTO `$table` (`nombre`, `nif`, `email`, `telefono`, `entidad`, `denominacion`, `fnacimiento`, `genero`, 
       `nass`, `domicilio`, `cp`, `poblacion`, `discapacidad`, `colectivo`) 
@@ -424,7 +433,7 @@ add_action( 'rest_api_init', function () {
   function postCompany($data) {
     global $wpdb;
     
-    $table = $wpdb-> wp_9unxs.'precompany';
+    $table = $wpdb-> dbname.'.precompany';
     
     $wpdb->query( "INSERT INTO `$table` (`razonsocial`, `sector`, `convenio`, `cif`, `inscripcions`, `ntrabajadores`, 
       `centrotrabajo`, `cp2`, `poblacion2`, `comarca2`, `conocurso`, `autorizconsorcio`, `facademica`, `arfuncional`, 
