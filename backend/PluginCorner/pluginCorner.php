@@ -268,18 +268,18 @@ add_action( 'rest_api_init', function () {
   function getUsersAll($data) {
     global $wpdb;
   
-    $table = $wpdb-> wp_9unxs.'preusers';
+    $table = $wpdb-> dbname.'preusers';
     $sql = "SELECT * FROM $table";
     $post_id = $data['id'];
   
     $result = $wpdb->get_results( $wpdb->prepare( $sql, $post_id ) );
   
-    return $result;
+    return $wpdb->dbname;
   }
   function getUsers($data) {
     global $wpdb;
   
-    $table = $wpdb-> wp_9unxs.'preusers';
+    $table = $wpdb-> prefix .'preusers';
     $sql = "SELECT * FROM $table where id = %d";
     $post_id = $data['id'];
   
