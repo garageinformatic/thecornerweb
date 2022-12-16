@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Planilla ingreso TC</title>
+    <title>Formulario de Pre-Inscripción</title>
     <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
     <script src="https://unpkg.com/downloadjs@1.4.7"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
@@ -13,6 +13,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!--link rel="stylesheet" href="/css/bootstrap.min.css"-->
+    <style>
+        .wrapper {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        img {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .signature-pad {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 400px;
+            height: 200px;
+            border: 1px dashed red;
+        }
+    </style>
 
     <script>
         /* Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -35,9 +61,29 @@
             })
         })()
 */
+        var signaturePad;
+        //inicializo el pad para la firma digital
+        window.onload = function () {
+            signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
+                //backgroundColor: 'rgba(255, 255, 255, 0)',
+                penColor: 'rgb(0, 0, 0)'
+            });
+            //var saveButton = document.getElementById('save');
+            var cancelButton = document.getElementById('clear');
 
+            /*
+            saveButton.addEventListener('click', function (event) {
+                var data = signaturePad.toDataURL('image/png');
 
+                // Send data to server instead...
+                window.open(data);
+            });
+            */
 
+            cancelButton.addEventListener('click', function (event) {
+                signaturePad.clear();
+            });
+        }
 
         const tyc = document.getElementById("condiciones");
         const enviar = document.getElementById("enviar");
@@ -65,7 +111,7 @@
                 cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: "omit", // include, *same-origin, omit
                 headers: {
-                   "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BydWViYTEuc2VydmVyMi50cmluY2hlcmEuZGV2IiwiaWF0IjoxNjcwNDIyMDMxLCJuYmYiOjE2NzA0MjIwMzEsImV4cCI6MTY3MTAyNjgzMSwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.15sqM1Rn9G_zg0Asdyk-2tGXpbl8CIqwealujsHsR8g",
+                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BydWViYTEuc2VydmVyMi50cmluY2hlcmEuZGV2IiwiaWF0IjoxNjcwNDIyMDMxLCJuYmYiOjE2NzA0MjIwMzEsImV4cCI6MTY3MTAyNjgzMSwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.15sqM1Rn9G_zg0Asdyk-2tGXpbl8CIqwealujsHsR8g",
                     "Content-Type": "application/json",
                 },
 
@@ -123,6 +169,10 @@
             //no he cambiado todos los id del html porque faltan cosas del formulario, 
             //del 1 al 4 estan cambiado los id
             //objeto "datos"
+
+            var firma = signaturePad.toDataURL('image/png');
+            console.log(firma);
+
             leadData = {
                 nombre: document.getElementById("nombre").value,
                 nif: document.getElementById("nif").value,
@@ -136,16 +186,16 @@
                 fechanacimiento: document.getElementById("fechanacimiento").value,
                 genero: document.getElementById("genero").value,
                 nass: document.getElementById("nass").value,
-                discapacidad : document.getElementById("discapacidad").value,
+                discapacidad: document.getElementById("discapacidad").value,
                 domicilio: document.getElementById("domicilio").value,
                 cp: document.getElementById("cp").value,
                 poblacion: document.getElementById("poblacion").value,
                 colectivo: document.getElementById("colectivo").value, //vals: 1-4
-                
+
             }
 
             datos = Object.assign(leadData, additionalData);
-            sendPersonalData(datos);
+            // sendPersonalData(datos);
 
             vals = [
                 {
@@ -230,14 +280,14 @@
                 //opciones
                 conocurso: document.getElementById("conocurso").value,
                 autorizconsorcio: document.getElementById("autorizconsorcio").value,
-                
+
                 facademica: document.getElementById("facademica").value,
                 arfuncional: document.getElementById("arfuncional").value,
                 categoriaso: document.getElementById("categoriaso").value,
 
             }
 
-            sendCompanyData(empresa);
+            //  sendCompanyData(empresa);
 
             cord = [
                 {
@@ -305,17 +355,17 @@
 
             // Get the first page of the document
             const pages = pdfDoc.getPages()
-            const firstPage = pages[0]
+            const pdfPage = pages[0]
 
             // Get the width and height of the first page
-            const { width, height } = firstPage.getSize()
+            const { width, height } = pdfPage.getSize()
 
             mySize = 10;
             myFont = helveticaFont;
 
             for (let i = 0; i < vals.length; i++) {
                 console.log(datos[vals[i].key])
-                firstPage.drawText(datos[vals[i].key], {
+                pdfPage.drawText(datos[vals[i].key], {
                     x: vals[i].x,
                     y: vals[i].y,
                     size: mySize,
@@ -323,7 +373,7 @@
                 })
             }
             for (let i = 0; i < cord.length; i++) {
-                firstPage.drawText(empresa[cord[i].key], {
+                pdfPage.drawText(empresa[cord[i].key], {
                     x: cord[i].x,
                     y: cord[i].y,
                     size: mySize,
@@ -340,9 +390,9 @@
             //let sel_opt_1 = 4
 
             let coord = {}
-            
+
             switch (additionalData.discapacidad) {
-                case "Si": 
+                case "Si":
                     coord = {
                         x: 450,
                         y: 665,
@@ -354,7 +404,7 @@
                         y: 665,
                     }
             }
-            firstPage.drawText("X", {
+            pdfPage.drawText("X", {
                 x: coord.x,
                 y: coord.y,
                 size: 10,
@@ -439,7 +489,7 @@
                         y: 559
                     }
             }
-            firstPage.drawText("X", {
+            pdfPage.drawText("X", {
                 x: coord.x,
                 y: coord.y,
                 size: 10,
@@ -451,10 +501,10 @@
 
 
 
-            
+
 
             switch (empresa.autorizconsorcio) {
-                case "true": 
+                case "true":
                     coord = {
                         x: 80,
                         y: 540,
@@ -466,7 +516,7 @@
                         y: 0,
                     }
             }
-            firstPage.drawText("X", {
+            pdfPage.drawText("X", {
                 x: coord.x,
                 y: coord.y,
                 size: 10,
@@ -537,7 +587,7 @@
                         y: 456
                     }
             }
-            firstPage.drawText("X", {
+            pdfPage.drawText("X", {
                 x: coord_2.x,
                 y: coord_2.y,
                 size: 10,
@@ -585,7 +635,7 @@
                     }
             }
 
-            firstPage.drawText("X", {
+            pdfPage.drawText("X", {
                 x: coord_3.x,
                 y: coord_3.y,
                 size: 12,
@@ -628,12 +678,26 @@
 
             }
 
-            firstPage.drawText("X", {
+            pdfPage.drawText("X", {
                 x: coord_4.x,
                 y: coord_4.y,
                 size: 12,
                 font: helveticaFont,
             })
+
+
+            const ImgFirma = await pdfDoc.embedPng(firma);
+            //FIRMA
+            pdfPage.drawImage(ImgFirma, {
+                x: 300,
+                y: 195,
+                width: 70,
+                height: 30,
+                rotate: degrees(0),
+                xSkew: degrees(0),
+                ySkew: degrees(0),
+            })
+
 
             // Serialize the PDFDocument to bytes (a Uint8Array)
             const pdfBytes = await pdfDoc.save()
@@ -661,22 +725,23 @@
 
         <form class="row g-3 needs-validation" novalidate>
 
-            <h1 class="mb-4">Anexo 1. Solicitud de participación en una acción formativa</h1>
+            <h1 class="mb-4">Solicitud de participación en una acción formativa</h1>
 
             <div class="col-md-12">
                 <label for="entidad" class="form-label">Nombre de la Entidad solicitante</label>
-                <input type="text" class="form-control" id="entidad" value="ORGANITZACION EMPRESARIAL CATALANA DE LA FORMACIÓN" required>
+                <input type="text" class="form-control" id="entidad" disabled
+                    value="ORGANITZACION EMPRESARIAL CATALANA DE LA FORMACIÓN" required>
 
                 <div class="invalid-feedback">Escriba una entidad valida.</div>
             </div>
             <div class="col-md-12">
                 <label for="denominacion" class="form-label">Denominación de la acción formativa</label>
-                <input type="text" class="form-control" id="denominacion" value="" required>
+                <input type="text" class="form-control" id="denominacion" value="">
 
                 <div class="invalid-feedback">Escriba una acción formativa valida.</div>
             </div>
 
-            <h1 class="mb-4">Datos del trabajador/a participante</h1>
+            <h3 class="mb-4">Datos del trabajador/a participante</h3>
 
             <div class="col-md-8">
                 <label for="nombre" class="form-label">Apellidos y Nombres</label>
@@ -697,7 +762,7 @@
             </div>
             <div class="col-md-4">
                 <label for="genero" class="form-label">Género</label>
-                <select class="form-select" id="genero" required>
+                <select class="form-select" id="genero">
                     <option selected disabled value="">--Escoje uno--</option>
                     <option>Hombre</option>
                     <option>Mujer</option>
@@ -718,7 +783,7 @@
                 <select class="form-select" id="discapacidad" required>
                     <option>No</option>
                     <option>Si</option>
-                    
+
                 </select>
             </div>
 
@@ -761,7 +826,7 @@
                     <option>Girona</option>
                 </select>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="conocurso" class="form-label">¿A traves de quien conociste el curso?</label>
                 <select class="form-select" id="conocurso" required>
                     <option value="">--Escoje una Opcion--</option>
@@ -781,19 +846,19 @@
 
                 </select>
             </div>
-            <div class="col-md-12">
-                <div class="form-check"> 
+            <div class="col-md-12 mb-4 mt-4">
+                <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="true" id="autorizconsorcio" required>
                     <label class="form-check-label" for="autorizconsorcio"> Autorizo al Consorcio para la Formación
                         Continua de Cataluña a utilizar mis datos personales para recibir información sobre la
                         formación</label>
                 </div>
             </div>
-
+            <hr>
             <!--Formacion Academica-->
-            <div class="col-md-12">
-                <h1 class="mb-4">Formacion Academica</h1>
-                <h3 class="mb-2">Estudios</h3>
+            <div class="col-md-6">
+                <!--h1 class="mb-4">Formacion Academica</h1-->
+                <label for="facademica" class="form-label mb-2">Estudios</label>
                 <select class="form-select" id="facademica" required>
                     <option value="">--Escoje una Opcion--</option>
                     <option value="14">Sin Titulacion</option>
@@ -808,8 +873,46 @@
                     <option value="22">Otra Titulacion</option>
                 </select> <br>
             </div>
+
+            <!--h1 class="mb-4">Ocupación actual</h1-->
+            <div class="col-md-4">
+                <label for="colectivo" class="form-label mb-2">Colectivo</label>
+                <select class="form-select" id="colectivo" required>
+                    <option selected disabled value="">--Escoje uno--</option>
+                    <option value="1">Ocupado/a</option>
+                    <option value="2">Desempleado/a </option>
+                    <option value="3">Afectado/a ERTE </option>
+                    <option value="4">Cuidador/a no profesional (CPN)</option>
+
+                </select>
+            </div>
+            <hr>
+            <h6 class="mt-4"><i>*Solo Ocupados</i></h6>
             <div class="col-md-6">
-                <h3 class="mb-2">Area Funcional(Solo Ocupados)</h3>
+                <label for="regimen" class="form-label mb-2">Regimen</label>
+                <select class="form-select" id="regimen" required>
+                    <option selected disabled value="">--Escoje uno--</option>
+                    <option value="1">RG - Régimen general</option>
+                    <option value="2">EH - Trabajadores/as del hogar</option>
+                    <option value="3">FD - Fijos discontinuos en periodos de no-ocupación</option>
+                    <option value="4">DF - Trabajadores/as que acceden al paro durante el periodo formativo</option>
+                    <option value="5">RE - Regulación de ocupación en periodos de no-ocupación</option>
+                    <option value="6">AGP - Régimenespecial agrario por cuenta propia</option>
+                    <option value="7">RLE - Trabajadores/as conrelaciones laborales de carácter especial (reguladas por
+                        artículo2del estatuto de Trabajadores)</option>
+                    <option value="8">AGA - Régimen especial agrario por cuenta ajena</option>
+                    <option value="9">CESS - Trabajadores/as con convenio especial con la Seguridad Social</option>
+                    <option value="10">AU - Régimen especial de autónomos</option>
+                    <option value="11">TM - Trabajadores/ras (incluidos/as al régimen especial del mar</option>
+                    <option value="12">CP - Mutualistas de Colegios Profesionales no incluidos como autónomos</option>
+                    <option value="13">AP - Administración pública</option>
+                    <option value="14">FDI - Trabajadores/as a tiempo parcial de carácter indefinido con Trabajo
+                        discontinuo) y en periodosde no-ocupación</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="arfuncional" class="form-label mb-2">Area Funcional</label>
                 <select class="form-select" id="arfuncional" required>
                     <option selected disabled value="">--Escoje uno--</option>
                     <option value="23">Dirección</option>
@@ -819,8 +922,8 @@
                     <option value="27">Producción</option>
                 </select>
             </div>
-            <div class="col-md-6">
-                <h3 class="mb-2">Categoria (Solo Ocupados)</h3>
+            <div class="col-md-3">
+                <label for="categoriaso" class="form-label mb-2">Categoria</label>
                 <select class="form-select" id="categoriaso" required>
                     <option selected disabled value="">--Escoje uno--</option>
                     <option value="28">Directivo/a</option>
@@ -832,22 +935,11 @@
             </div>
 
 
-            <h3>Colectivo</h3>
-            <select class="form-select" id="colectivo" required>
-                <option selected disabled value="">--Escoje uno--</option>
-                <option value="1">Ocupado/a</option>
-                <option value="2">Desempleado/a </option>
-                <option value="3">Afectado/a ERTE </option>
-                <option value="4">Cuidador/a no profesional (CPN)</option>
-
-            </select>
-            <br>
-
             <div class="col-md-12">
                 <h2 class="mt-4">Entidad o empresa donde trabaja actualmente (solo ocupados / as)</h2>
             </div>
-            
-            
+
+
             <!--div class="form-check-inline">
                 Empresa con mas de 250 empleados?
                 <input class="form-check-input" type="radio" name="mas250" id="inlineCheckbox1" value="1">
@@ -965,10 +1057,16 @@
                     <option>Tarragona</option>
                     <option>Girona</option>
                 </select>
-            </div> <br>
-            <span class="d-block pb-2">Firma digital aqui</span>
-            <div class="signature mb-2" style="width: 100%; height: 200px;">
-                <canvas id="signature-canvas" style="border: 1px dashed red; width: 100%; height: 200px;"></canvas>
+            </div>
+
+            <span class="d-block pb-2">Firma aqui utilizando el trackpad o el ratón</span>
+            <div class="wrapper">
+
+                <canvas id="signature-pad" class="signature-pad" width=400 height=200></canvas>
+            </div>
+
+            <div class="col-md-12">
+                <button id="clear">Borrar firma</button>
             </div>
             <p>Protección de datos: a los efectos previstos a la Ley Orgánica 3/2018, de 5 de diciembre, de Protección
                 de Datos Personales ygarantía de los derechos digitales, y al Reglamento (UE) 2016/679 del Parlamento
@@ -1020,5 +1118,6 @@
 
 
 </body>
+
 
 </html>
