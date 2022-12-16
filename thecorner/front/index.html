@@ -65,20 +65,10 @@
         //inicializo el pad para la firma digital
         window.onload = function () {
             signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
-                //backgroundColor: 'rgba(255, 255, 255, 0)',
                 penColor: 'rgb(0, 0, 0)'
             });
-            //var saveButton = document.getElementById('save');
+
             var cancelButton = document.getElementById('clear');
-
-            /*
-            saveButton.addEventListener('click', function (event) {
-                var data = signaturePad.toDataURL('image/png');
-
-                // Send data to server instead...
-                window.open(data);
-            });
-            */
 
             cancelButton.addEventListener('click', function (event) {
                 signaturePad.clear();
@@ -88,19 +78,12 @@
         const tyc = document.getElementById("condiciones");
         const enviar = document.getElementById("enviar");
 
-
-
         //const cambiarCondiciones = () => tyc.checked ? enviar.disabled = false : enviar.disabled = true
 
         var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
         var alertTrigger = document.getElementById('liveAlertBtn')
 
-
         const { PDFDocument, StandardFonts, rgb, degrees } = PDFLib
-
-
-
-
 
         async function sendData(urn, data) {
 
@@ -130,48 +113,20 @@
         }
 
 
-        //grabamos datos personales básicos de contacto en la BBDD
-
-        //NO SE USA
-        async function sendLeadData(data) {
-            console.log('envio datos básicos');
-            sendData('leadData', data);
-
-        }
-
-        //grabamos datos adicionales en la BBDD
-
-        //NO SE USA
-        async function sendAdditionalData(data) {
-            console.log('envio datos básicos');
-            sendData('additionalData', data);
-
-        }
-
         //grabamos datos personales y de contacto en la BBDD
         async function sendPersonalData(data) {
             console.log('envio datos personales');
             sendData('personalData', data);
-
         }
 
         //grabamos datos de la empresa en la BBDD
         async function sendCompanyData(data) {
             console.log('envio datos empresa');
             sendData('companyData', data);
-
         }
 
 
         async function saveData() {
-            //hemos hecho document.getElementById con el id de c/uno de los valores 
-            //hemos corregidos unos id para hacer pruebas, como veras la mayoria de ellos se repiten eln el html 
-            //no he cambiado todos los id del html porque faltan cosas del formulario, 
-            //del 1 al 4 estan cambiado los id
-            //objeto "datos"
-
-            var firma = signaturePad.toDataURL('image/png');
-            console.log(firma);
 
             leadData = {
                 nombre: document.getElementById("nombre").value,
@@ -198,69 +153,18 @@
             sendPersonalData(datos);
 
             vals = [
-                {
-                    key: "entidad",
-                    x: 80,
-                    y: 736,
-                },
-
-                {
-                    key: "denominacion",
-                    x: 80,
-                    y: 718,
-                },
-
-                {
-                    key: "nombre",
-                    x: 150,
-                    y: 685,
-                },
-                {
-                    key: "nif",
-                    x: 350,
-                    y: 685,
-                },
-                {
-                    key: "fechanacimiento",
-                    x: 80,
-                    y: 665,
-                },
-                {
-                    key: "genero",
-                    x: 170,
-                    y: 665,
-                },
-                {
-                    key: "nass",
-                    x: 240,
-                    y: 665,
-                },
-                {
-                    key: "domicilio",
-                    x: 80,
-                    y: 645,
-                },
-                {
-                    key: "cp",
-                    x: 260,
-                    y: 645,
-                },
-                {
-                    key: "poblacion",
-                    x: 350,
-                    y: 665,
-                },
-
-                {
-                    key: "email",
-                    x: 80,
-                    y: 622,
-                },
-                {
-                    key: "telefono",
-                    x: 360,
-                    y: 622,
-                },
+                {key: "entidad",x: 80, y: 736 },
+                {key: "denominacion",x: 80,y: 718,},
+                {key: "nombre",x: 150,y: 685,},
+                {key: "nif",x: 350,y: 685,},
+                {key: "fechanacimiento",x: 80,y: 665,},
+                {key: "genero",x: 170,y: 665,},
+                {key: "nass",x: 240,y: 665,},
+                {key: "domicilio",x: 80,y: 645,},
+                {key: "cp",x: 260,y: 645,},
+                {key: "poblacion",x: 350,y: 665,},
+                {key: "email",x: 80,y: 622,},
+                {key: "telefono",x: 360,y: 622,},
 
             ]
             //hemos hecho otro objeto para empresa
@@ -290,56 +194,16 @@
             sendCompanyData(empresa);
 
             cord = [
-                {
-                    key: "razonsocial",
-                    x: 80,
-                    y: 310,
-                },
-                {
-                    key: "sector",
-                    x: 80,
-                    y: 293,
-                },
-                {
-                    key: "convenio",
-                    x: 410,
-                    y: 293,
-                },
-                {
-                    key: "cif",
-                    x: 80,
-                    y: 273,
-                },
-                {
-                    key: "inscripcions",
-                    x: 200,
-                    y: 273,
-                },
-                {
-                    key: "ntrabajadores",
-                    x: 410,
-                    y: 273,
-                },
-                {
-                    key: "centrotrabajo",
-                    x: 80,
-                    y: 253,
-                },
-                {
-                    key: "cp2",
-                    x: 80,
-                    y: 235,
-                },
-                {
-                    key: "poblacion2",
-                    x: 140,
-                    y: 235,
-                },
-                {
-                    key: "comarca2",
-                    x: 400,
-                    y: 235,
-                }
+                {key: "razonsocial",x: 80,y: 310,},
+                {key: "sector",x: 80,y: 293,},
+                {key: "convenio",x: 410,y: 293,},
+                {key: "cif",x: 80,y: 273,},
+                {key: "inscripcions",x: 200,y: 273,},
+                {key: "ntrabajadores",x: 410,y: 273,},
+                {key: "centrotrabajo",x: 80,y: 253,},
+                {key: "cp2",x: 80,y: 235,},
+                {key: "poblacion2",x: 140,y: 235,},
+                {key: "comarca2",x: 400,y: 235,}
             ]
 
 
@@ -393,16 +257,10 @@
 
             switch (additionalData.discapacidad) {
                 case "Si":
-                    coord = {
-                        x: 450,
-                        y: 665,
-                    }
+                    coord = {x: 450,y: 665,}
                     break;
                 default:
-                    coord = {
-                        x: 484,
-                        y: 665,
-                    }
+                    coord = {x: 484,y: 665,}
             }
             pdfPage.drawText("X", {
                 x: coord.x,
@@ -412,82 +270,43 @@
             })
             switch (empresa.conocurso) {
                 case "1": //Oficina de Trabajo (OT)
-                    coord = {
-                        x: 84,
-                        y: 602,
-                    }
+                    coord = {x: 84,y: 602,}
                     break;
                 case "2": //Buscador de cursos del SOC
-                    coord = {
-                        x: 245,
-                        y: 602
-                    }
+                    coord = {x: 245,y: 602}
                     break;
                 case "3": //Twitter del Consorci @fpo_continua
-                    coord = {
-                        x: 391,
-                        y: 602
-                    }
+                    coord = {x: 391,y: 602}
                     break;
                 case "4": //Web del Consorci: conforcat.gencat.cat
-                    coord = {
-                        x: 84,
-                        y: 592
-                    }
+                    coord = {x: 84,y: 592}
                     break;
                 case "5": //Web: fp.gencat.cat
-                    coord = {
-                        x: 245,
-                        y: 592
-                    }
+                    coord = {x: 245,y: 592}
                     break;
                 case "6": //Twitter de Ocupación @ocupaciocat
-                    coord = {
-                        x: 391,
-                        y: 592
-                    }
+                    coord = {x: 391,y: 592}
                     break;
                 case "7": //Entidad de Formación 
-                    coord = {
-                        x: 84,
-                        y: 581
-                    }
+                    coord = {x: 84,y: 581}
                     break;
                 case "8": //LinkedIn
-                    coord = {
-                        x: 245,
-                        y: 581
-                    }
+                    coord = {x: 245,y: 581}
                     break;
                 case "9": //Amigos, amigas o familiares
-                    coord = {
-                        x: 391,
-                        y: 581
-                    }
+                    coord = {x: 391,y: 581}
                     break;
                 case "10": // Agentes económicos y sociales
-                    coord = {
-                        x: 84,
-                        y: 570
-                    }
+                    coord = {x: 84,y: 570}
                     break;
                 case "11": //Empresa
-                    coord = {
-                        x: 245,
-                        y: 570
-                    }
+                    coord = {x: 245,y: 570}
                     break;
                 case "12": //Prensa, radio, televisión ( medios comunicación)
-                    coord = {
-                        x: 391,
-                        y: 570
-                    }
+                    coord = {x: 391,y: 570}
                     break;
                 default:
-                    coord = {
-                        x: 84,
-                        y: 559
-                    }
+                    coord = {x: 84,y: 559}
             }
             pdfPage.drawText("X", {
                 x: coord.x,
@@ -523,62 +342,35 @@
             let coord_2 = {}
             switch (empresa.facademica) {
                 case "14": //Sin titulacion
-                    coord_2 = {
-                        x: 95,
-                        y: 492,
-                    }
+                    coord_2 = {x: 95,y: 492,}
                     break;
                 case "15": //Titulo de graduado ESO
-                    coord_2 = {
-                        x: 95,
-                        y: 484
-                    }
+                    coord_2 = {x: 95,y: 484}
                     break;
                 case "16": //Titulo bachillerato
-                    coord_2 = {
-                        x: 95,
-                        y: 474
-                    }
+                    coord_2 = {x: 95,y: 474}
                     break;
                 case "17": //Titulo FP nivel 1
-                    coord_2 = {
-                        x: 95,
-                        y: 464
-                    }
+                    coord_2 = {x: 95,y: 464}
                     break;
                 case "18": //Titulo tecnico FP
-                    coord_2 = {
-                        x: 341,
-                        y: 474
-                    }
+                    coord_2 = {x: 341,y: 474}
                     break;
                 case "19": //Titulo tecnico superior nivel 3
-                    coord_2 = {
-                        x: 341,
-                        y: 492
-                    }
+                    coord_2 = {x: 341,y: 492}
                     break;
 
                 case "20": //Estudios universitarios 1º ciclo
-                    coord_2 = {
-                        x: 341,
-                        y: 474
-                    }
+                    coord_2 = {x: 341,y: 474}
                     break;
 
 
                 case "21": //Estudios universitarios 2º ciclo
-                    coord_2 = {
-                        x: 95,
-                        y: 456
-                    }
+                    coord_2 = {x: 95,y: 456}
                     break;
 
                 default: // Otra titulacion
-                    coord_2 = {
-                        x: 341,
-                        y: 456
-                    }
+                    coord_2 = {x: 341,y: 456}
             }
             pdfPage.drawText("X", {
                 x: coord_2.x,
@@ -596,36 +388,21 @@
             let coord_3 = {}
             switch (empresa.arfuncional) {
                 case "23": //Dirección 
-                    coord_3 = {
-                        x: 95,
-                        y: 426,
-                    }
+                    coord_3 = {x: 95,y: 426,}
                     break;
 
                 case "24": //Administración
-                    coord_3 = {
-                        x: 95,
-                        y: 417
-                    }
+                    coord_3 = {x: 95,y: 417}
                     break;
 
                 case "25": //Comercial
-                    coord_3 = {
-                        x: 95,
-                        y: 408
-                    }
+                    coord_3 = {x: 95,y: 408}
                     break;
                 case "26": //Mantenimiento
-                    coord_3 = {
-                        x: 95,
-                        y: 399
-                    }
+                    coord_3 = {x: 95,y: 399}
                     break;
                 default: // Producción
-                    coord_3 = {
-                        x: 95,
-                        y: 390
-                    }
+                    coord_3 = {x: 95,y: 390}
             }
 
             pdfPage.drawText("X", {
@@ -640,34 +417,19 @@
             let coord_4 = {}
             switch (empresa.categoriaso) {
                 case "28": //Directivo/a
-                    coord_4 = {
-                        x: 341,
-                        y: 426
-                    }
+                    coord_4 = {x: 341, y: 426}
                     break;
                 case "29": //Mando intermedio
-                    coord_4 = {
-                        x: 341,
-                        y: 417
-                    }
+                    coord_4 = {x: 341, y: 417}
                     break;
                 case "30": //Técnico/a
-                    coord_4 = {
-                        x: 341,
-                        y: 408
-                    }
+                    coord_4 = {x: 341, y: 408}
                     break;
                 case "31": //Trabajador/a cualificado/a
-                    coord_4 = {
-                        x: 341,
-                        y: 399
-                    }
+                    coord_4 = {x: 341,y: 399}
                     break;
                 default: // trabajador de baja cualificacion
-                    coord_4 = {
-                        x: 341,
-                        y: 389
-                    }
+                    coord_4 = {x: 341, y: 389}
 
             }
 
@@ -679,8 +441,10 @@
             })
 
 
-            const ImgFirma = await pdfDoc.embedPng(firma);
             //FIRMA
+            var firma = signaturePad.toDataURL('image/png');
+            const ImgFirma = await pdfDoc.embedPng(firma);
+            
             pdfPage.drawImage(ImgFirma, {
                 x: 300,
                 y: 195,
@@ -690,7 +454,6 @@
                 xSkew: degrees(0),
                 ySkew: degrees(0),
             })
-
 
             // Serialize the PDFDocument to bytes (a Uint8Array)
             const pdfBytes = await pdfDoc.save()
